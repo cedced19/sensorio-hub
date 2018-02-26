@@ -1,0 +1,28 @@
+{
+  "name": "sensorio-hub",
+  "version": "0.0.0",
+  "description": "A hub to manage many sensors and their data.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cedced19/sensorio-hub.git"
+  },
+  "keywords": [
+    "sensorio",
+    "hub",
+    "sensor",
+    "manage",
+    "data",
+    "charts"
+  ],
+  "author": "Cédric JUNG <cedced19@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cedced19/sensorio-hub/issues"
+  },
+  "homepage": "https://github.com/cedced19/sensorio-hub#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^5.0.7"
+  }
+}
