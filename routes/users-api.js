@@ -23,8 +23,8 @@ router.post('/', auth, function(req, res, next) {
 });
 
 /* GET User */
-router.get('/:id', auth, function(req, res, next) {
-    req.app.models.users.findOne({ id: req.params.id }, function(err, model) {
+router.get('/:email', auth, function(req, res, next) {
+    req.app.models.users.findOne({ email: req.params.email }, function(err, model) {
         if(err) return next(err);
         if(model === '' || model === null || model === undefined) return next(err);
         delete model.password;
@@ -33,44 +33,11 @@ router.get('/:id', auth, function(req, res, next) {
 });
 
 /* DELETE User */
-router.delete('/:id', auth, function(req, res, next) {
-    req.app.models.users.destroy({ id: req.params.id }, function(err) {
+router.delete('/:email', auth, function(req, res, next) {
+    req.app.models.users.destroy({ email: req.params.email }, function(err) {
         if(err) return next(err);
         res.json({ status: true });
     });
-});
-
-/* PUT User */
-router.put('/:id', auth, function(req, res, next) {
-    delete req.body.id;
-    // Test old password
-    req.app.models.users.findOne({ email: req.body.email }, function (err, model) {
-      if (err) { return next(err); }
-      if (!model) {
-        return next(new Error('User not found.'));
-      }
-
-      hash(req.body.oldpassword).verifyAgainst(model.password, function(err, verified) {
-          if(err) {
-            return next(err);
-          } else if (!verified) {
-            err = new Error('Old password does not match.');
-            err.status = 401;
-            return next(err);
-          } else {
-          req.app.models.users.update({ id: req.params.id }, {
-            email: req.body.email,
-            password : req.body.password
-          }, function(err, model) {
-                if(err) return next(err);
-                delete model[0].password;
-                res.json(model[0]);
-            });
-          }
-      });
-
-    });
-
 });
 
 module.exports = router;

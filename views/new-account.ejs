@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sensorio | <%=texts.NEW_ACCOUNT %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <h1>Sensorio</h1>
+    <p><%=texts.NEW_ACCOUNT_MSG %></p>
+    <form action="/users/new/" method="post">
+     <label for="email"><%=texts.EMAIL %>:</label>
+     <input type="email" name="email">
+     <label for="password"><%=texts.PASSWORD %>:</label>
+     <input type="password" name="password">
+     <input type="submit" class="btn btn-submit" value="<%=texts.SUBMIT %>">
+    </form>
+    <%if (!connected) { %>
+    <p class="footer">
+      <a href="/"><%=texts.HOME_PAGE %></a>
+      <a href="/users/"><%=texts.USERS_LIST %></a>
+      <a href="/logout"><%=texts.LOGOUT %></a>
+    </p>
+    <% } %>
+  </body>
+</html>

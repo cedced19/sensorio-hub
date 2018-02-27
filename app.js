@@ -5,7 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var i18n = require('i18n-express');
+
 var compress = require('compression');
+var minifyTemplate = require('express-beautify').minify;
+var minifyCSS = require('express-minify');
 
 var passport = require('passport');
 var hash = require('password-hash-and-salt');
@@ -33,11 +37,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(i18n({
+    translationsPath: path.join(__dirname, 'i18n'),
+    cookieLangName: 'language',
+    paramLangName: 'lang',
+    siteLangs: ['en','fr']
+}));  
+
 app.use(compress());
 
 if (app.get('env') === 'development') {
     app.use(logger('dev'));
+} else {
+    app.use(compress());
+    app.use(minifyTemplate());
+    app.use(minifyCSS());
 }
+  
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -65,11 +81,11 @@ app.use('/api/version', version);
 
 // authentication
 passport.serializeUser(function (model, done) {
-    done(null, model.id);
+    done(null, model.email);
 });
 
-passport.deserializeUser(function (id, done) {
-    app.models.users.findOne({ id: id }, function (err, model) {
+passport.deserializeUser(function (email, done) {
+    app.models.users.findOne({ email: email }, function (err, model) {
         delete model.password;
         done(err, model);
     });
@@ -79,12 +95,12 @@ passport.deserializeUser(function (id, done) {
 passport.use('local', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
-}, function (name, password, done) {
+}, function (email, password, done) {
     // search in database
     app.models.users.findOne({ email: email }, function (err, model) {
         if (err) { return done(err); }
         if (!model) {
-            return done(null, false, { message: 'Incorrect name.' });
+            return done(null, false, { message: 'Incorrect email.' });
         }
         // test password
         hash(password).verifyAgainst(model.password, function (err, verified) {
@@ -94,8 +110,7 @@ passport.use('local', new LocalStrategy({
                 });
             } else {
                 var returnmodel = {
-                    email: model.email,
-                    id: model.id
+                    email: model.email
                 };
                 return done(null, returnmodel, {
                     message: 'Logged in successfully.'

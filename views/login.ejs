@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sensorio | <%=texts.LOGIN_PAGE %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="manifest" href="/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <h1>Sensorio</h1>
+    <p><%=texts.LOGIN_PAGE_MSG %> Sensorio.</p>
+    <%if (message.length) { %>
+      <span class="error-box">
+      <%if (message[0] == 'invalid-email') { %>
+        <%=texts.INVALID_EMAIL %>
+      <% } else if (message[0] == 'invalid-password') { %>
+        <%=texts.INVALID_PASSWORD %>
+      <% } %>
+      </span>
+    <% } %>
+    <form action="/login" method="post">
+      <label for="email"><%=texts.EMAIL %>:</label>
+      <input type="email" name="email">
+      <label for="password"><%=texts.PASSWORD %>:</label>
+      <input type="password" name="password">
+      <input type="submit" class="btn btn-submit" value="<%=texts.SUBMIT %>">
+    </form>
+  </body>
+</html>
