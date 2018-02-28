@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Henhouse Automatised | <%=texts.HOME_PAGE %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link rel="manifest" href="/manifest.json">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <h1>Sensorio</h1>
-    <p><%=texts.WELCOME_MSG %> Sensorio.</p>
-   
-    <p class="footer">
-      <span><%=texts.HOME_PAGE %></span>
-      <a href="/users/"><%=texts.USERS_LIST %></a>
-      <a href="/logout"><%=texts.LOGOUT %></a>
-    </p>
-    <script type="text/javascript" src="/javascripts/scripts.js"></script>
-  </body>
+<head>
+  <title>Henhouse Automatised |
+    <%=texts.HOME_PAGE %>
+  </title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Sensorio</h1>
+  <p><%=texts.WELCOME_MSG %> Sensorio.</p>
+  <div ng-app="Sensorio">
+    <div autoscroll="true" ng-view>
+      <noscript>
+        <h2>Houston, we have a problem.</h2>
+        <p>You must enable Javascript to use this applications.</p>
+      </noscript>
+    </div>
+  </div>
+  <p class="footer">
+    <span>
+      <%=texts.HOME_PAGE %>
+    </span>
+    <a href="/users/">
+      <%=texts.USERS_LIST %>
+    </a>
+    <a href="/logout">
+      <%=texts.LOGOUT %>
+    </a>
+  </p>
+  <script type="text/javascript" src="/javascripts/scripts.js"></script>
+</body>
+
 </html>
