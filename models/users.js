@@ -16,16 +16,16 @@ var format = function(user, cb) {
 var Users = Waterline.Collection.extend({
     identity: 'users',
     connection: 'mongo',
-    primaryKey: 'email',
+    autoPK: false,
     autoCreatedAt: false,
     autoUpdatedAt: false,
 
-    attributes: {
-       
+    attributes: { 
         email: {
             type: 'string',
             required: true,
-            unique: true
+            unique: true,
+            primaryKey: true
         },
         password: {
             type: 'string',
