@@ -144,6 +144,7 @@ td a {
     padding: 20px; 
     width: 200px;
     height: 150px; 
+    margin: 15px;
 }
 
 @media (max-width: 600px) {
