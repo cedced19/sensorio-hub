@@ -2,7 +2,9 @@ var Waterline = require('waterline');
 
 var format = function(data, cb) {
     data.temperature = Number(data.temperature);
-    if (data.hasOwnProperty('temperature2')) {
+    if (data.temperature2 == 'false') {
+        delete data.temperature2;
+    } else {
         data.temperature2 = Number(data.temperature2);
     }
     data.humidity = Number(data.humidity);

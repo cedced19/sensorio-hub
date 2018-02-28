@@ -3,5 +3,13 @@
     "temperature": "Temperature",
     "humidity": "Humidity",
     "heat_index": "Heat Index",
-    "weather-stations": "Weather stations"
+    "weather_stations": "Weather stations",
+    "weather_station": "Weather station",
+    "address_ip": "IP Address",
+    "name": "Name",
+    "submit": "Submit",
+    "add_sensor": "Add sensor",
+    "go_back": "Go back",
+    "sensor_type": "Sensor type",
+    "sensor_added": "The sensor has been added."
 }

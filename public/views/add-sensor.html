@@ -1,0 +1,12 @@
+<a class="btn previous" ng-click="$goTo('/')"><span class="stronger">&#8249;</span> {{ 'go_back' | translate }}</a>
+<form>
+    <label for="name">{{ 'name' | translate }}: </label>
+    <input type="text" name="name" ng-model="newSensor.name" required>
+    <label for="ip">{{ 'address_ip' | translate }}:</label>
+    <input type="text" name="ip" ng-model="newSensor.ip" required>
+    <label for="type">{{ 'sensor_type' | translate }}:</label>
+    <select name="type" ng-model="newSensor.type" required>
+        <option value="weather-station">{{ 'weather_station' | translate }}</option>
+    </select>
+    <input type="submit" class="btn btn-submit" value="{{ 'submit' | translate }}" ng-click="addSensor()">
+</form>

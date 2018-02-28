@@ -14,6 +14,10 @@ app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider
             templateUrl: '/views/list.html',
             controller: 'ListCtrl'
         })
+        .when('/add-sensor', {
+            templateUrl: '/views/add-sensor.html',
+            controller: 'AddSensorCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -42,5 +46,9 @@ app.run(['$rootScope', '$location', '$http', 'notie', '$translate', 'localStorag
           notie.alert(3, error , 3);
         });
     };
+    $rootScope.$goTo = function (path) {
+        $location.path(path);
+    }
 }]);
 app.controller('ListCtrl', require('./controllers/list.js'));
+app.controller('AddSensorCtrl', require('./controllers/add-sensor.js'));
