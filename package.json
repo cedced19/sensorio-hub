@@ -19,7 +19,10 @@
     "sensorio": "bin/sensorio-hub"
   },
   "scripts": {
-    "start": "node bin/sensorio-hub --harmony"
+    "start": "node bin/sensorio-hub --harmony",
+    "dev": "node ./build/dev",
+    "prod": "node ./build/prod",
+    "code": "npm start & npm run dev"
   },
   "author": "Cédric JUNG <cedced19@gmail.com>",
   "license": "MIT",
@@ -29,6 +32,7 @@
   "homepage": "https://github.com/cedced19/sensorio-hub#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "browserify": "^13.1.0",
     "check-update-github": "0.0.4",
     "compression": "^1.7.2",
     "connect-flash": "^0.1.1",
@@ -51,6 +55,11 @@
     "sails-mongo": "^0.12.1",
     "semver": "^5.5.0",
     "server-welcome": "0.0.0",
+    "uglifyify": "^3.0.3",
     "waterline": "^0.10.26"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "watchify": "^3.7.0"
   }
 }
