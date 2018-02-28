@@ -1,1 +1,6 @@
-{}
+{
+    "error_occured": "Une erreur a eu lieu.",
+    "temperature": "Temperature",
+    "humidity": "Humidité",
+    "heat_index": "Indice de chaleur"
+}

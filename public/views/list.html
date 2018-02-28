@@ -1,0 +1,9 @@
+<div ng-repeat="station in weatherData" class="weather-station-box">
+        <i>{{station.ip}}</i>
+        <ul>
+            <li><b>{{ 'temperature' | translate }} n°1:</b> {{station.temperature}}°C</li>
+            <li><b>{{ 'temperature' | translate }} n°2:</b> {{station.temperature2}}°C</li>
+            <li><b>{{ 'humidity' | translate }}:</b> {{station.humidity}}%</li>
+            <li><b>{{ 'heat_index' | translate }}:</b> {{station.heat_index}}°C</li>
+        </ul>
+</div>

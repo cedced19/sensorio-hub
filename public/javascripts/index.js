@@ -36,5 +36,11 @@ app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider
         .determinePreferredLanguage()
         .fallbackLanguage('en');
 }]);
-
+app.run(['$rootScope', '$location', '$http', 'notie', '$translate', 'localStorageService', function ($rootScope, $location, $http, notie, $translate, localStorageService) {
+    $rootScope.$error = function () { // Send message error
+        $translate('error_occured').then(function (error) {
+          notie.alert(3, error , 3);
+        });
+    };
+}]);
 app.controller('ListCtrl', require('./controllers/list.js'));

@@ -3,11 +3,22 @@ var router = express.Router();
 var auth = require('../policies/auth.js');
 var isWeatherStation = require('../policies/weather-station.js');
 
-/* GET All weather data */
+/* GET last weather data from each station */
 router.get('/', auth, function(req, res, next) {
-    req.app.models.weatherdata.find().exec(function(err, models) {
+    req.app.models.weatherdata.find({ 
+        createdAt: { '>=': new Date(new Date().getTime() - 60 * 60 * 1000) },
+        sort: { createdAt: 'desc' }
+    }).exec(function(err, models) {
         if(err) return next(err);
-        res.json(models);
+        var lastData = [];
+        var ips = [];
+        for (var k in models) {
+            if (!ips.includes(models[k].ip)) {
+                lastData.push(models[k]);
+                ips.push(models[k].ip);
+            }
+        }
+        res.json(lastData);
     });
 });
 
