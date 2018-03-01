@@ -12,5 +12,6 @@
     "go_back": "Retour",
     "sensor_type": "Type de capteur",
     "sensor_added": "Le capteur a été ajouté.",
-    "week": "Semaine"
+    "week": "Semaine",
+    "statistics": "Statistiques"
 }

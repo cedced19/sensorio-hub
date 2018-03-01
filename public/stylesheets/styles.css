@@ -70,25 +70,11 @@ input[type='password'], input[type='text'], input[type='email'], select {
   background: #3cb0fd;
   text-decoration: none;
 }
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-}
 .btn-submit {
     float: right;
+}
+.btn-mobile {
+    display: none;
 }
 .footer {
     position: fixed;
@@ -171,8 +157,15 @@ td a {
   }
   .weather-station-box {
     margin-left: 0;
+    height: 250px;
   }
   .canvas-container {
     max-width: 90%;
+  }
+  .btn-mobile {
+    display: block;
+  }
+  body {
+    padding: 5px
   }
 }

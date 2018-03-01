@@ -3,6 +3,7 @@
     "short_name": "Sensorio",
     "start_url": "./",
     "display": "standalone",
+    "orientation": "portrait",
     "icons": [{
       "src": "icons/48.png",
       "sizes": "48x48",
