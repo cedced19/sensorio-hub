@@ -11,5 +11,6 @@
     "add_sensor": "Ajouter un capteur",
     "go_back": "Retour",
     "sensor_type": "Type de capteur",
-    "sensor_added": "Le capteur a été ajouté."
+    "sensor_added": "Le capteur a été ajouté.",
+    "week": "Semaine"
 }

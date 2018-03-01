@@ -91,7 +91,7 @@ input[type='password'], input[type='text'], input[type='email'], select {
     float: right;
 }
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 50px;
 }
@@ -146,6 +146,7 @@ td a {
 
 .weather-station-box h3:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .previous {
