@@ -1,5 +1,5 @@
 module.exports = ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$translate', function ($scope, $http, $rootScope, $location, $routeParams, $translate) {
-    var getFormatedDate = function (date) {
+    var getFormatedHours = function (date) {
         var d = new Date(date),
         h = d.getHours(),
         m = d.getMinutes();
@@ -15,7 +15,7 @@ module.exports = ['$scope', '$http', '$rootScope', '$location', '$routeParams', 
             $scope.seriesHum = [translations.humidity];
         });
         data.forEach(function(el) {
-            $scope.time.push(getFormatedDate(el.createdAt));
+            $scope.time.push(getFormatedHours(el.createdAt));
             $scope.temperatures[0].push(el.temperature);
             $scope.temperatures[1].push(el.heat_index);
             $scope.temperatures[2].push(el.temperature2);

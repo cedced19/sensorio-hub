@@ -19,10 +19,10 @@
     "sensorio": "bin/sensorio-hub"
   },
   "scripts": {
-    "start": "node bin/sensorio-hub --harmony",
+    "start": "node bin/sensorio-hub",
     "dev": "node ./build/dev",
     "prod": "node ./build/prod",
-    "code": "npm start & npm run dev"
+    "code": "nodemon --ignore node_modules/ --ignore public/ -e js bin/sensorio-hub  & npm run dev"
   },
   "author": "Cédric JUNG <cedced19@gmail.com>",
   "license": "MIT",
@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",
+    "nodemon": "^1.17.1",
     "watchify": "^3.7.0"
   }
 }

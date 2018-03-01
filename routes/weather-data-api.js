@@ -23,10 +23,25 @@ router.get('/', auth, function(req, res, next) {
 });
 
 
-/* GET last weather data from one station */
+/* GET weather data from one station from last 24 hours  */
 router.get('/:ip/day', auth, function(req, res, next) {
     req.app.models.weatherdata.find({ 
         createdAt: { '>=': new Date(new Date().getTime() - 60 * 60 * 1000 * 24) },
+        sort: { createdAt: 'desc' },
+        ip: req.params.ip
+    }).exec(function(err, models) {
+        if(err) return next(err);
+        models.forEach(function(model){
+            delete model.ip;
+        });
+        res.json(models);
+    });
+});
+
+/* GET weather data from one station from last 7 days */
+router.get('/:ip/week', auth, function(req, res, next) {
+    req.app.models.weatherdata.find({ 
+        createdAt: { '>=': new Date(new Date().getTime() - 60 * 60 * 1000 * 24 * 7) },
         sort: { createdAt: 'desc' },
         ip: req.params.ip
     }).exec(function(err, models) {
