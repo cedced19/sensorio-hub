@@ -1,13 +1,14 @@
 require('angular'); /*global angular*/
+require('chart.js');
+require('angular-chart.js');
 require('angular-route');
 require('ng-notie');
 require('angular-translate');
 require('angular-translate-loader-static-files');
 require('angular-translate-loader-url');
-require('angular-local-storage');
 
-var app = angular.module('Sensorio', ['ngNotie', 'ngRoute',  'LocalStorageModule', 'pascalprecht.translate']);
-app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider',  function($routeProvider, $translateProvider, localStorageServiceProvider) {
+var app = angular.module('Sensorio', ['ngNotie', 'ngRoute', 'pascalprecht.translate', 'chart.js']);
+app.config(['$routeProvider', '$translateProvider', function($routeProvider, $translateProvider) {
         // Route configuration
         $routeProvider
         .when('/', {
@@ -18,12 +19,13 @@ app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider
             templateUrl: '/views/add-sensor.html',
             controller: 'AddSensorCtrl'
         })
+        .when('/weather-sation/graph/:ip', {
+            templateUrl: '/views/weather-station-graph.html',
+            controller: 'WeatherStationGraphCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
-
-        // Localstorage configuration
-        localStorageServiceProvider.setPrefix('sensorio');
 
         // i18n configuration
         $translateProvider
@@ -40,7 +42,7 @@ app.config(['$routeProvider', '$translateProvider', 'localStorageServiceProvider
         .determinePreferredLanguage()
         .fallbackLanguage('en');
 }]);
-app.run(['$rootScope', '$location', '$http', 'notie', '$translate', 'localStorageService', function ($rootScope, $location, $http, notie, $translate, localStorageService) {
+app.run(['$rootScope', '$location', '$http', 'notie', '$translate', function ($rootScope, $location, $http, notie, $translate) {
     $rootScope.$error = function () { // Send message error
         $translate('error_occured').then(function (error) {
           notie.alert(3, error , 3);
@@ -49,6 +51,10 @@ app.run(['$rootScope', '$location', '$http', 'notie', '$translate', 'localStorag
     $rootScope.$goTo = function (path) {
         $location.path(path);
     }
+    $http.get('/api/sensors').success(function (data) {
+        $rootScope.sensors = data;
+    }).error($rootScope.$error);
 }]);
 app.controller('ListCtrl', require('./controllers/list.js'));
 app.controller('AddSensorCtrl', require('./controllers/add-sensor.js'));
+app.controller('WeatherStationGraphCtrl', require('./controllers/weather-station-graph.js'));

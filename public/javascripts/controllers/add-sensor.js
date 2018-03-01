@@ -8,5 +8,5 @@ module.exports = ['$scope', '$http', '$rootScope', '$location', function ($scope
                   notie.alert(1, translation, 3);
                 });
         }).error($rootScope.$error);
-};
+      };
 }];

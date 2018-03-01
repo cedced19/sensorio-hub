@@ -1,6 +1,7 @@
 <a class="btn" ng-click="$goTo('/add-sensor')">{{ 'add_sensor' | translate }}</a>
 <h2>{{ 'weather_stations' | translate }}</h2>
 <div ng-repeat="station in weatherData" class="weather-station-box">
+        <h3 ng-click="$goTo('/weather-sation/graph/' + station.ip)">{{station.name}}</h3>
         <i>{{station.ip}}</i>
         <ul>
             <li><b>{{ 'temperature' | translate }} n°1:</b> {{station.temperature}}°C</li>

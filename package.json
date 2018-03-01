@@ -65,7 +65,6 @@
     "waterline": "^0.10.26"
   },
   "devDependencies": {
-    "angular-local-storage": "^0.7.1",
     "browser-sync": "^2.11.2",
     "watchify": "^3.7.0"
   }

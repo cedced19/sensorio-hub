@@ -22,6 +22,22 @@ router.get('/', auth, function(req, res, next) {
     });
 });
 
+
+/* GET last weather data from one station */
+router.get('/:ip/day', auth, function(req, res, next) {
+    req.app.models.weatherdata.find({ 
+        createdAt: { '>=': new Date(new Date().getTime() - 60 * 60 * 1000 * 24) },
+        sort: { createdAt: 'desc' },
+        ip: req.params.ip
+    }).exec(function(err, models) {
+        if(err) return next(err);
+        models.forEach(function(model){
+            delete model.ip;
+        });
+        res.json(models);
+    });
+});
+
 /* POST Weather data: publish a weather data */
 router.post('/', isWeatherStation, function(req, res, next) {
     req.app.models.weatherdata.create({
