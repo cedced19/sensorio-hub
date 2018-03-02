@@ -28,6 +28,15 @@ router.get('/:ip', auth, function(req, res, next) {
     });
 });
 
+/* PUT Sensor */
+router.put('/:ip', auth, function(req, res, next) {
+    delete req.body.ip;
+    req.app.models.sensors.update({ ip: req.params.ip }, req.body, function(err, model) {
+        if(err) return next(err);
+        res.json(model[0]);
+    });
+});
+
 /* DELETE Sensor */
 router.delete('/:ip', auth, function(req, res, next) {
     req.app.models.sensors.findOne({ ip: req.params.ip }, function(err, model) {

@@ -16,8 +16,12 @@ app.config(['$routeProvider', '$translateProvider', function($routeProvider, $tr
             controller: 'ListCtrl'
         })
         .when('/add-sensor', {
-            templateUrl: '/views/add-sensor.html',
+            templateUrl: '/views/form-sensor.html',
             controller: 'AddSensorCtrl'
+        })
+        .when('/update-sensor/:ip', {
+            templateUrl: '/views/form-sensor.html',
+            controller: 'UpdateSensorCtrl'
         })
         .when('/weather-sation/graph/:ip', {
             templateUrl: '/views/weather-station-graph.html',
@@ -57,4 +61,5 @@ app.run(['$rootScope', '$location', '$http', 'notie', '$translate', function ($r
 }]);
 app.controller('ListCtrl', require('./controllers/list.js'));
 app.controller('AddSensorCtrl', require('./controllers/add-sensor.js'));
+app.controller('UpdateSensorCtrl', require('./controllers/update-sensor.js'));
 app.controller('WeatherStationGraphCtrl', require('./controllers/weather-station-graph.js'));

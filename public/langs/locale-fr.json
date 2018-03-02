@@ -12,6 +12,7 @@
     "go_back": "Retour",
     "sensor_type": "Type de capteur",
     "sensor_added": "Le capteur a été ajouté.",
+    "sensor_updated": "Le capteur a été mise à jour.",
     "week": "Semaine",
     "statistics": "Statistiques",
     "sensor_deleted": "Le capteur a été supprimée.",

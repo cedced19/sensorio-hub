@@ -12,6 +12,7 @@
     "go_back": "Go back",
     "sensor_type": "Sensor type",
     "sensor_added": "The sensor has been added.",
+    "sensor_updated": "The sensor has been updated.",
     "week": "Week",
     "statistics": "Statistics",
     "sensor_deleted": "Deleted! The sensor has been deleted.",
