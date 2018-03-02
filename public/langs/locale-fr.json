@@ -13,5 +13,9 @@
     "sensor_type": "Type de capteur",
     "sensor_added": "Le capteur a été ajouté.",
     "week": "Semaine",
-    "statistics": "Statistiques"
+    "statistics": "Statistiques",
+    "sensor_deleted": "Le capteur a été supprimée.",
+    "delete_sensor_question": "Êtes vous sur de vouloir supprimer ce capteur ?",
+    "delete_it": "Supprimer",
+    "cancel": "Annuler"
 }

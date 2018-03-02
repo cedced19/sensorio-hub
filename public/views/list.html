@@ -9,5 +9,7 @@
             <li><b>{{ 'humidity' | translate }}:</b> {{station.humidity}}%</li>
             <li><b>{{ 'heat_index' | translate }}:</b> {{station.heat_index}}°C</li>
         </ul>
+        <a class="btn" ng-click="deleteSensor(station.ip)"><i class="icon-trash"></i></a>
+        <a class="btn" ng-click="$goTo('/edit-sensor')"><i class="icon-pencil"></i></a>
         <a class="btn btn-mobile" ng-click="$goTo('/weather-sation/graph/' + station.ip)">{{ 'statistics' | translate }}</a>
 </div>

@@ -13,5 +13,9 @@
     "sensor_type": "Sensor type",
     "sensor_added": "The sensor has been added.",
     "week": "Week",
-    "statistics": "Statistics"
+    "statistics": "Statistics",
+    "sensor_deleted": "Deleted! The sensor has been deleted.",
+    "delete_sensor_question": "Delete this sensor?",
+    "delete_it": "Yes, delete it",
+    "cancel": "Cancel"
 }

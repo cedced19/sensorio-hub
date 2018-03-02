@@ -30,9 +30,20 @@ router.get('/:ip', auth, function(req, res, next) {
 
 /* DELETE Sensor */
 router.delete('/:ip', auth, function(req, res, next) {
-    req.app.models.sensors.destroy({ ip: req.params.ip }, function(err) {
+    req.app.models.sensors.findOne({ ip: req.params.ip }, function(err, model) {
         if(err) return next(err);
-        res.json({ status: true });
+        if(model === '' || model === null || model === undefined) return next(err);
+        req.app.models.sensors.destroy({ ip: req.params.ip }, function(err) {
+            if(err) return next(err);
+            if (model.type == 'weather-station') {
+                req.app.models.weatherdata.destroy({ ip: req.params.ip }, function(err) {    
+                    if(err) return next(err);    
+                    res.json({ status: true });            
+                });
+            } else {
+                res.json({ status: true });
+            }
+        });
     });
 });
 
