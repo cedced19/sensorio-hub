@@ -4,6 +4,7 @@ module.exports = ['$scope', '$http', '$rootScope', '$location', '$translate', 'n
   $scope.defineSensor = function () {
     $http.post('/api/sensors', $scope.sensor).success(function (data) {
       $location.path('/');
+      $rootScope.sensors.push(data);
       $translate('sensor_added').then(function (translation) {
         notie.alert(1, translation, 3);
       });

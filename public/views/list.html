@@ -3,12 +3,13 @@
 <div ng-repeat="station in weatherData" class="weather-station-box">
         <h3 ng-click="$goTo('/weather-sation/graph/' + station.ip)">{{station.name}}</h3>
         <i>{{station.ip}}</i>
-        <ul>
+        <ul ng-if="station.attributed">
             <li><b>{{ 'temperature' | translate }} n°1:</b> {{station.temperature}}°C</li>
             <li><b>{{ 'temperature' | translate }} n°2:</b> {{station.temperature2}}°C</li>
             <li><b>{{ 'humidity' | translate }}:</b> {{station.humidity}}%</li>
             <li><b>{{ 'heat_index' | translate }}:</b> {{station.heat_index}}°C</li>
         </ul>
+        <p ng-if="!station.attributed">{{ 'station_inactive' | translate }}</p>
         <a class="btn" ng-click="deleteSensor(station.ip)"><i class="icon-trash"></i></a>
         <a class="btn" ng-click="$goTo('/update-sensor/'+station.ip)"><i class="icon-pencil"></i></a>
         <a class="btn btn-mobile" ng-click="$goTo('/weather-sation/graph/' + station.ip)">{{ 'statistics' | translate }}</a>

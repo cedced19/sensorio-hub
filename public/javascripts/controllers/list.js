@@ -4,8 +4,15 @@ module.exports = ['$scope', '$http', '$rootScope', '$translate', 'notie', functi
         data.forEach(function (el) {
             for (var k in $rootScope.sensors) {
                 if ($rootScope.sensors[k].ip == el.ip) {
+                    $rootScope.sensors[k].attributed = true;
+                    el.attributed = true;
                     el.name = $rootScope.sensors[k].name;
                 }
+            }
+        });
+        $rootScope.sensors.forEach(function (el) {
+            if (el.type == 'weather-station' && !el.attributed) {
+                data.push(el);
             }
         });
         $scope.weatherData = data;

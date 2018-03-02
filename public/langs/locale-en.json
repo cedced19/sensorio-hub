@@ -18,5 +18,6 @@
     "sensor_deleted": "Deleted! The sensor has been deleted.",
     "delete_sensor_question": "Delete this sensor?",
     "delete_it": "Yes, delete it",
+    "station_inactive": "The station is inactive.",
     "cancel": "Cancel"
 }
