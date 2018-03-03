@@ -22,5 +22,12 @@
     "USER_DELETED": "User deleted",
     "USER_DELETED_MSG": "The user has been deleted with success.",
     "USER_NOT_DELETED": "User not deleted",
-    "USER_NOT_DELETED_MSG": "The user has not been deleted: you can delete your own account."
+    "USER_NOT_DELETED_MSG": "The user has not been deleted: you can delete your own account.",
+    "HOTTEST_PERIOD": "Hottest period of the day",
+    "TEMPERATURE": "Temperature",
+    "HEAT_INDEX": "Heat index",
+    "HUMIDITY": "Humidity",
+    "COLDEST_PERIOD": "Coldest period of the day",
+    "GENERATED_AT": "Generated at",
+    "LAST_24_HOURS": "Last 24 hours"
   }

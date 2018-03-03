@@ -10,6 +10,7 @@ var http = require('http');
 
 var async = require('async');
 var sendWeatherMail = require('../tasks/send-weather-mail');
+var schedule = require('node-schedule');
 
 /**
  * Get port from environment and store in Express.
@@ -30,9 +31,9 @@ var server = http.createServer(app);
 
 var models = require('../models');
 
-models.waterline.initialize(models.config, function(err, models) {
-  if(err) throw err;
-  
+models.waterline.initialize(models.config, function (err, models) {
+  if (err) throw err;
+
   app.models = models.collections;
   app.connections = models.connections;
 
@@ -43,36 +44,38 @@ models.waterline.initialize(models.config, function(err, models) {
   console.log(require('server-welcome')(port, 'Sensorio Hub'));
 
   // Define automatised tasks
-  async.parallel([
-    function(callback) {
-        app.models.users.find().exec(function(err, models) {
-            if(err) return callback(true);
-            models.forEach(function(model){
-                delete model.password;
-            });
-            callback(null, models);
+  var send = schedule.scheduleJob('0 55 23 * * *', function () {
+    async.parallel([
+      function (callback) {
+        app.models.users.find().exec(function (err, models) {
+          if (err) return callback(true);
+          models.forEach(function (model) {
+            delete model.password;
+          });
+          callback(null, models);
         });
-    },
-    function(callback) {
-        app.models.weatherdata.find({ 
-            createdAt: { '>=': new Date(new Date().getTime() - 60 * 60 * 1000 * 24) },
-            sort: { createdAt: 'desc' }
-        }).exec(function(err, models) {
-            if(err) return callback(true);
-            callback(null, models);
+      },
+      function (callback) {
+        app.models.weatherdata.find({
+          createdAt: { '>=': new Date(new Date().getTime() - 60 * 60 * 1000 * 24) },
+          sort: { createdAt: 'desc' }
+        }).exec(function (err, models) {
+          if (err) return callback(true);
+          callback(null, models);
         });
-    },
-    function(callback) {
-        app.models.sensors.find().exec(function(err, models) {
-            if(err) return callback(true);
-            callback(null, models);
+      },
+      function (callback) {
+        app.models.sensors.find().exec(function (err, models) {
+          if (err) return callback(true);
+          callback(null, models);
         });
-    }
-  ], function(err, results) {
-    if (!err) {
+      }
+    ], function (err, results) {
+      if (!err) {
         sendWeatherMail(...results);
-    } 
-});
+      }
+    });
+  });
 });
 
 /**

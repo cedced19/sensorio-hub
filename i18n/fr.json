@@ -22,5 +22,12 @@
     "USER_DELETED": "Utilisateur supprimé",
     "USER_DELETED_MSG": "L'utilisateur a été supprimé avec succès.",
     "USER_NOT_DELETED": "Utilisateur non supprimé",
-    "USER_NOT_DELETED_MSG": "L'utilisateur n'a pas été supprimé : vous ne pouvez pas supprimer votre propre compte."
+    "USER_NOT_DELETED_MSG": "L'utilisateur n'a pas été supprimé : vous ne pouvez pas supprimer votre propre compte.",
+    "HOTTEST_PERIOD": "Période la plus chaude de la journée",
+    "TEMPERATURE": "Température",
+    "HEAT_INDEX": "Indice de chaleur",
+    "HUMIDITY": "Humidité",
+    "COLDEST_PERIOD": "Période la plus froide de la journée",
+    "GENERATED_AT": "Généré à",
+    "LAST_24_HOURS": "Dernières 24 heures"
   }
