@@ -66,6 +66,7 @@ input[type='password'], input[type='text'], input[type='email'], select {
     -moz-border-radius: 11;
     border-radius: 11px;
     margin-bottom: 5px; 
+    cursor: pointer;
 }
 .btn:hover {
   background: #3cb0fd;
