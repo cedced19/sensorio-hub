@@ -29,5 +29,10 @@
     "HUMIDITY": "Humidité",
     "COLDEST_PERIOD": "Période la plus froide de la journée",
     "GENERATED_AT": "Généré à",
-    "LAST_24_HOURS": "Dernières 24 heures"
+    "LAST_24_HOURS": "Dernières 24 heures",
+    "LAST_MONTH": "Dernier mois",
+    "AVERAGE_LOWEST_TEMP": "Moyenne des températures les plus basses",
+    "AVERAGE_HIGHEST_TEMP": "Moyenne des températures les plus hautes",
+    "LOWEST_TEMP_MONTH": "Température la plus basse du mois",
+    "HIGHEST_TEMP_MONTH": "Température la plus haute du mois"
   }
