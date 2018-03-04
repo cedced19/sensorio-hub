@@ -5,7 +5,7 @@
         <i>{{station.ip}}</i>
         <ul ng-if="station.attributed">
             <li><b>{{ 'temperature' | translate }} n°1:</b> {{station.temperature}}°C</li>
-            <li><b>{{ 'temperature' | translate }} n°2:</b> {{station.temperature2}}°C</li>
+            <li ng-if="station.temperature2"><b>{{ 'temperature' | translate }} n°2:</b> {{station.temperature2}}°C</li>
             <li><b>{{ 'humidity' | translate }}:</b> {{station.humidity}}%</li>
             <li><b>{{ 'heat_index' | translate }}:</b> {{station.heat_index}}°C</li>
         </ul>
