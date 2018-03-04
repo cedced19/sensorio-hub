@@ -34,5 +34,7 @@
     "AVERAGE_LOWEST_TEMP": "Moyenne des températures les plus basses",
     "AVERAGE_HIGHEST_TEMP": "Moyenne des températures les plus hautes",
     "LOWEST_TEMP_MONTH": "Température la plus basse du mois",
-    "HIGHEST_TEMP_MONTH": "Température la plus haute du mois"
+    "HIGHEST_TEMP_MONTH": "Température la plus haute du mois",
+    "COLDEST_DAY_MONTH": "Jour le plus froid du mois",
+    "HOTTEST_DAY_MONTH": "Jour le plus chaud du mois"
   }
