@@ -1,21 +1,16 @@
-var mailConfig = [];
-var translation = {};
-try {
-    mailConfig = require('../mail-config.json');
-    translation = require('../i18n/' + mailConfig.language + '.json');
-} catch (e) {
-    throw e;
-    process.exit(1);
-}
 
+var translation = require('../i18n/' + process.env.MAIL_LANGUAGE + '.json');
 var getExtremums = require('get-extremums');
 var nodemailer = require('nodemailer');
 var moment = require('moment');
-moment.locale(mailConfig.language);
+moment.locale(process.env.MAIL_LANGUAGE);
 
 var transporter = nodemailer.createTransport({
-    service: mailConfig.service,
-    auth: mailConfig.auth
+    service: process.env.MAIL_SERVICE,
+    auth: {
+        user: process.env.MAIL_AUTH_USER,
+        pass: process.env.MAIL_AUTH_PASS
+    }
 });
 
 
@@ -59,7 +54,7 @@ module.exports = function (users, weatherData, sensors) {
         }
         text += '</ul></p>';
     });
-    
+
     // Get receivers list
     var receivers = [];
     users.forEach(function (el) {
@@ -68,7 +63,7 @@ module.exports = function (users, weatherData, sensors) {
 
     // Send mail
     transporter.sendMail({
-        from: `Sensorio <${mailConfig.auth.user}>`,
+        from: `Sensorio <${process.env.MAIL_AUTH_USER}>`,
         to: receivers.join(),
         subject: 'Sensorio: ' + moment().format('DD MMMM YYYY'),
         html: text

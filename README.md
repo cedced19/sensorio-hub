@@ -7,18 +7,14 @@ To code the front javascript, you have to use: `npm run code`, it will start a b
 
 ![Demo](demo.png)
 
-## Mail config
+## Configuration
 
-You will have to create a `mail-config.json` file to configurate the mail service:
-```json
-{
-    "language": "en",
-    "service": "gmail",
-    "auth": {
-        "user": "email",
-        "pass": "password"
-    }
-}
+You will have to create a `.env` file to configurate the mail service:
+```dosini
+MAIL_LANGUAGE=en
+MAIL_SERVICE=gmail
+MAIL_AUTH_USER=example@gmail.com
+MAIL_AUTH_PASS=password
 ```
 You can use a lot of service as described [there](http://nodemailer.com/smtp/well-known/).
 I use another GMail account to send me the data each day. 

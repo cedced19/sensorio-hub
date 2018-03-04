@@ -1,22 +1,16 @@
-var mailConfig = [];
-var translation = {};
-try {
-    mailConfig = require('../mail-config.json');
-    translation = require('../i18n/' + mailConfig.language + '.json');
-} catch (e) {
-    throw e;
-    process.exit(1);
-}
-
+var translation = require('../i18n/' + process.env.MAIL_LANGUAGE + '.json');
 var getExtremums = require('get-extremums');
 var getAverageProperty = require('get-average-property');
 var nodemailer = require('nodemailer');
 var moment = require('moment');
-moment.locale(mailConfig.language);
+moment.locale(process.env.MAIL_LANGUAGE);
 
 var transporter = nodemailer.createTransport({
-    service: mailConfig.service,
-    auth: mailConfig.auth
+    service: process.env.MAIL_SERVICE,
+    auth: {
+        user: process.env.MAIL_AUTH_USER,
+        pass: process.env.MAIL_AUTH_PASS
+    }
 });
 
 function groupBy(array, funcProp) {
@@ -65,8 +59,8 @@ module.exports = function (users, weatherData, sensors) {
             <ul>
                 <li>${translation['AVERAGE_LOWEST_TEMP']}: ${Math.floor(getAverageProperty(daysExtremums, 'lowest'))} °C</li>
                 <li>${translation['AVERAGE_HIGHEST_TEMP']}: ${Math.floor(getAverageProperty(daysExtremums, 'highest'))} °C</li>  
-                <li>${translation['LOWEST_TEMP_MONTH']} (<i>${moment(new Date (lowestTempMonth.date)).format('DD MMMM')}</i>): ${lowestTempMonth.lowest} °C</li>          
-                <li>${translation['HIGHEST_TEMP_MONTH']} (<i>${moment(new Date (highestTempMonth.date)).format('DD MMMM')}</i>): ${highestTempMonth.highest} °C</li>          
+                <li>${translation['LOWEST_TEMP_MONTH']} (<i>${moment(new Date(lowestTempMonth.date)).format('DD MMMM')}</i>): ${lowestTempMonth.lowest} °C</li>          
+                <li>${translation['HIGHEST_TEMP_MONTH']} (<i>${moment(new Date(highestTempMonth.date)).format('DD MMMM')}</i>): ${highestTempMonth.highest} °C</li>          
             </ul>
         </p>`
     });
@@ -79,7 +73,7 @@ module.exports = function (users, weatherData, sensors) {
 
     // Send mail
     transporter.sendMail({
-        from: `Sensorio <${mailConfig.auth.user}>`,
+        from: `Sensorio <${process.env.MAIL_AUTH_USER}>`,
         to: receivers.join(),
         subject: 'Sensorio: ' + moment().subtract(1, 'month').format('MMMM YYYY'), // The data is supposed to be runned at the first day of the month therefore it will be the data from last month
         html: text
