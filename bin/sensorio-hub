@@ -9,8 +9,10 @@ var debug = require('debug')('sensorio-hub:server');
 var http = require('http');
 
 var async = require('async');
-var sendWeatherMail = require('../tasks/send-weather-mail');
+var sendDailyMail = require('../tasks/send-daily-mail');
+var sendMonthlyMail = require('../tasks/send-monthly-mail');
 var schedule = require('node-schedule');
+var moment = require('moment');
 
 /**
  * Get port from environment and store in Express.
@@ -44,35 +46,18 @@ models.waterline.initialize(models.config, function (err, models) {
   console.log(require('server-welcome')(port, 'Sensorio Hub'));
 
   // Define automatised tasks
-  var send = schedule.scheduleJob('0 55 23 * * *', function () {
-    async.parallel([
-      function (callback) {
-        app.models.users.find().exec(function (err, models) {
-          if (err) return callback(true);
-          models.forEach(function (model) {
-            delete model.password;
-          });
-          callback(null, models);
-        });
-      },
-      function (callback) {
-        app.models.weatherdata.find({
-          createdAt: { '>=': new Date(new Date().getTime() - 60 * 60 * 1000 * 24) },
-          sort: { createdAt: 'desc' }
-        }).exec(function (err, models) {
-          if (err) return callback(true);
-          callback(null, models);
-        });
-      },
-      function (callback) {
-        app.models.sensors.find().exec(function (err, models) {
-          if (err) return callback(true);
-          callback(null, models);
-        });
-      }
-    ], function (err, results) {
+  schedule.scheduleJob('0 55 23 * * *', function () {
+    prepareData(86400000, function (err, results) {
       if (!err) {
-        sendWeatherMail(...results);
+        sendDailyMail(...results);
+      }
+    });
+  });
+
+  schedule.scheduleJob('0 0 0 1 * *', function () {
+    prepareData(86400000 * moment().daysInMonth(), function (err, results) {
+      if (!err) {
+        sendMonthlyMail(...results);
       }
     });
   });
@@ -123,4 +108,36 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+}
+
+/**
+ * Function to prepare data for automatised tasks.
+ */
+function prepareData(range, cb) {
+  async.parallel([
+    function (callback) {
+      app.models.users.find().exec(function (err, models) {
+        if (err) return callback(true);
+        models.forEach(function (model) {
+          delete model.password;
+        });
+        callback(null, models);
+      });
+    },
+    function (callback) {
+      app.models.weatherdata.find({
+        createdAt: { '>=': new Date(new Date().getTime() - range) },
+        sort: { createdAt: 'desc' }
+      }).exec(function (err, models) {
+        if (err) return callback(true);
+        callback(null, models);
+      });
+    },
+    function (callback) {
+      app.models.sensors.find().exec(function (err, models) {
+        if (err) return callback(true);
+        callback(null, models);
+      });
+    }
+  ], cb);
 }

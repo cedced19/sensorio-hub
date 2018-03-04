@@ -1,4 +1,3 @@
-
 var mailConfig = [];
 var translation = {};
 try {
