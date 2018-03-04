@@ -55,13 +55,11 @@ router.get('/:ip/week', auth, function(req, res, next) {
 
 /* POST Weather data: publish a weather data */
 router.post('/', isWeatherStation, function(req, res, next) {
-    req.app.models.weatherdata.create({
-        temperature: req.body.temperature, 
-        temperature2: req.body.temperature2, 
-        humidity: req.body.humidity, 
-        heat_index: req.body.heat_index, 
-        ip: req.ip
-    }, function(err, model) {
+    if (req.body.temperature2 === 'false') {
+        delete req.body.temperature2;
+    }
+    req.body.ip = req.ip;
+    req.app.models.weatherdata.create(req.body, function(err, model) {
         if(err) return next(err);
         res.json(model);
     });

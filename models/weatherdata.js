@@ -1,10 +1,9 @@
 var Waterline = require('waterline');
 
 var format = function(data, cb) {
+    console.log(data);
     data.temperature = Number(data.temperature);
-    if (data.temperature2 == 'false') {
-        delete data.temperature2;
-    } else {
+    if (data.temperature2) {
         data.temperature2 = Number(data.temperature2);
     }
     data.humidity = Number(data.humidity);
