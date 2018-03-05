@@ -35,7 +35,8 @@ module.exports = function (users, weatherData, sensors, cb) {
     });
 
     // Generate text
-    var text = `<h1>${translation['LAST_MONTH']}: ${moment().subtract(1, 'month').format('DD MMMM')} ${translation['TO']} ${moment().format('DD MMMM')}</h1><i>${translation['GENERATED_AT']}: ${moment().format('DD/MM/YY HH:mm')}</i>`;
+    var title = `${moment().subtract(1, 'month').format('DD MMMM')} ${translation['TO']} ${moment().format('DD MMMM')}`;
+    var text = `<h1>${translation['LAST_MONTH']}: ${title}</h1><i>${translation['GENERATED_AT']}: ${moment().format('DD/MM/YY HH:mm')}</i>`;
 
     sensors.forEach(function (el) {
         // Divide data by days
@@ -82,7 +83,7 @@ module.exports = function (users, weatherData, sensors, cb) {
     transporter.sendMail({
         from: `Sensorio <${process.env.MAIL_AUTH_USER}>`,
         to: receivers.join(),
-        subject: 'Sensorio: ' + moment().subtract(1, 'month').format('MMMM YYYY'), // The data is supposed to be runned at the first day of the month therefore it will be the data from last month
+        subject: 'Sensorio: ' + title, // The data is supposed to be runned at the first day of the month therefore it will be the data from last month
         html: text
     }, function (err) {
         if (cb) {

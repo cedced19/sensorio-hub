@@ -32,4 +32,12 @@ module.exports = ['$scope', '$http', '$rootScope', '$translate', 'notie', functi
             });
         });
     };
+
+    $scope.forceTask = function (task) {
+        $http.get('/api/force-tasks/' + task).success(function () {
+            $translate('task_success').then(function (value) {
+                notie.alert(1, value, 3);
+            });
+        }).error($rootScope.$error);
+    }
 }];

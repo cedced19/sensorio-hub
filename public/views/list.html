@@ -1,4 +1,6 @@
 <a class="btn" ng-click="$goTo('/add-sensor')">{{ 'add_sensor' | translate }}</a>
+<a class="btn" ng-click="forceTask('daily-mail')">{{ 'send_daily_mail' | translate }}</a>
+<a class="btn" ng-click="forceTask('monthly-mail')">{{ 'send_monthly_mail' | translate }}</a>
 <h2>{{ 'weather_stations' | translate }}</h2>
 <div ng-repeat="station in weatherData" class="weather-station-box">
         <h3 ng-click="$goTo('/weather-sation/graph/' + station.ip)">{{station.name}}</h3>

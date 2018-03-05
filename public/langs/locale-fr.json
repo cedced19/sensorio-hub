@@ -19,5 +19,8 @@
     "delete_sensor_question": "Êtes vous sur de vouloir supprimer ce capteur ?",
     "delete_it": "Supprimer",
     "station_inactive": "La station est inactive.",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "send_daily_mail": "Envoyer le mail du jour",
+    "send_monthly_mail": "Envoyer le mail du mois",
+    "task_success": "La tâche a été effectuée avec succès."
 }

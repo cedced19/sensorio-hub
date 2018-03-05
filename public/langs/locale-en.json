@@ -19,5 +19,8 @@
     "delete_sensor_question": "Delete this sensor?",
     "delete_it": "Yes, delete it",
     "station_inactive": "The station is inactive.",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "send_daily_mail": "Send email of the day",
+    "send_monthly_mail": "Send email of the month",
+    "task_success": "The task was successfully completed."
 }
