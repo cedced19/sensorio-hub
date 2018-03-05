@@ -37,5 +37,6 @@
     "HIGHEST_TEMP_MONTH": "Température la plus haute du mois",
     "COLDEST_DAY_MONTH": "Jour le plus froid du mois",
     "HOTTEST_DAY_MONTH": "Jour le plus chaud du mois",
-    "TO": "au"
+    "TO": "au",
+    "INACTIVE_SENSOR": "Le capteur a été inactif sur la totalité de la période."
   }

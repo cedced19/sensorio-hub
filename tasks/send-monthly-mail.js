@@ -39,38 +39,42 @@ module.exports = function (users, weatherData, sensors, cb) {
     var text = `<h1>${translation['LAST_MONTH']}: ${title}</h1><i>${translation['GENERATED_AT']}: ${moment().format('DD/MM/YY HH:mm')}</i>`;
 
     sensors.forEach(function (el) {
-        // Divide data by days
-        var days = groupBy(el.data, function (k) {
-            return moment(new Date(k.createdAt)).startOf('day').format();
-        });
-         
-        var daysStats = [];
-        for (var k in days) {
-            let extremums = getExtremums(days[k], 'temperature');
-            daysStats.push({
-                lowest: extremums.lowest.temperature,
-                highest: extremums.highest.temperature,
-                average_temp: getAverageProperty(days[k], 'temperature'),
-                date: k
-            }); 
-        }
-        // Get hottest and coldest day of the month
-        var coldestAndHottestDays = getExtremums(daysStats, 'average_temp');
+        if (el.data.length == 0) {
+            text += `<p>${translation['INACTIVE_SENSOR']}</p>`
+        } else {
+            // Divide data by days
+            var days = groupBy(el.data, function (k) {
+                return moment(new Date(k.createdAt)).startOf('day').format();
+            });
 
-        // Get lowest and highest temperatures
-        var lowestTempMonth = getExtremums(daysStats, 'lowest').lowest;
-        var highestTempMonth = getExtremums(daysStats, 'highest').highest;
-        text += `<h2>${el.name}</h2>
-        <p>
-            <ul>
-                <li>${translation['AVERAGE_LOWEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'lowest'))} °C</li>
-                <li>${translation['AVERAGE_HIGHEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'highest'))} °C</li>  
-                <li>${translation['LOWEST_TEMP_MONTH']} (<i>${moment(new Date(lowestTempMonth.date)).format('DD MMMM')}</i>): ${lowestTempMonth.lowest} °C</li>          
-                <li>${translation['HIGHEST_TEMP_MONTH']} (<i>${moment(new Date(highestTempMonth.date)).format('DD MMMM')}</i>): ${highestTempMonth.highest} °C</li>          
-                <li>${translation['COLDEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.lowest.date)).format('DD MMMM')}</li>
-                <li>${translation['HOTTEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.highest.date)).format('DD MMMM')}</li>           
-            </ul>
-        </p>`
+            var daysStats = [];
+            for (var k in days) {
+                let extremums = getExtremums(days[k], 'temperature');
+                daysStats.push({
+                    lowest: extremums.lowest.temperature,
+                    highest: extremums.highest.temperature,
+                    average_temp: getAverageProperty(days[k], 'temperature'),
+                    date: k
+                });
+            }
+            // Get hottest and coldest day of the month
+            var coldestAndHottestDays = getExtremums(daysStats, 'average_temp');
+
+            // Get lowest and highest temperatures
+            var lowestTempMonth = getExtremums(daysStats, 'lowest').lowest;
+            var highestTempMonth = getExtremums(daysStats, 'highest').highest;
+            text += `<h2>${el.name}</h2>
+            <p>
+                <ul>
+                    <li>${translation['AVERAGE_LOWEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'lowest'))} °C</li>
+                    <li>${translation['AVERAGE_HIGHEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'highest'))} °C</li>  
+                    <li>${translation['LOWEST_TEMP_MONTH']} (<i>${moment(new Date(lowestTempMonth.date)).format('DD MMMM')}</i>): ${lowestTempMonth.lowest} °C</li>          
+                    <li>${translation['HIGHEST_TEMP_MONTH']} (<i>${moment(new Date(highestTempMonth.date)).format('DD MMMM')}</i>): ${highestTempMonth.highest} °C</li>          
+                    <li>${translation['COLDEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.lowest.date)).format('DD MMMM')}</li>
+                    <li>${translation['HOTTEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.highest.date)).format('DD MMMM')}</li>           
+                </ul>
+            </p>`
+        }
     });
 
     // Get receivers list
