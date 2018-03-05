@@ -57,7 +57,7 @@ models.waterline.initialize(models.config, function (err, models) {
   });
 
   schedule.scheduleJob('0 0 0 1 * *', function () {
-    prepareData(86400000 * moment().daysInMonth(), function (err, results) {
+    prepareData(86400000 * moment().subtract(1,'month').daysInMonth(), function (err, results) {
       if (!err) {
         sendMonthlyMail(...results);
       }

@@ -14,7 +14,7 @@ var transporter = nodemailer.createTransport({
 });
 
 
-module.exports = function (users, weatherData, sensors) {
+module.exports = function (users, weatherData, sensors, cb) {
 
     // Attach weather data to sensors
     var list = [];
@@ -67,5 +67,9 @@ module.exports = function (users, weatherData, sensors) {
         to: receivers.join(),
         subject: 'Sensorio: ' + moment().format('DD MMMM YYYY'),
         html: text
+    }, function (err) {
+        if (cb) {
+            cb(err);
+        }
     });
 };
