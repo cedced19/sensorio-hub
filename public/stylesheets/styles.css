@@ -180,12 +180,12 @@ td a {
 
 @font-face {
   font-family: 'font';
-  src: url('../font/font.eot?70528364');
-  src: url('../font/font.eot?70528364#iefix') format('embedded-opentype'),
-       url('../font/font.woff2?70528364') format('woff2'),
-       url('../font/font.woff?70528364') format('woff'),
-       url('../font/font.ttf?70528364') format('truetype'),
-       url('../font/font.svg?70528364#font') format('svg');
+  src: url('/font/font.eot?70528364');
+  src: url('/font/font.eot?70528364#iefix') format('embedded-opentype'),
+       url('/font/font.woff2?70528364') format('woff2'),
+       url('/font/font.woff?70528364') format('woff'),
+       url('/font/font.ttf?70528364') format('truetype'),
+       url('/font/font.svg?70528364#font') format('svg');
   font-weight: normal;
   font-style: normal;
 }
