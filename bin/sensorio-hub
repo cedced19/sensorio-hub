@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-require('dotenv').config();
+var path= require('path');
+require('dotenv').config({path: path.resolve(__dirname, '../.env')});
 
 /**
  * Module dependencies.

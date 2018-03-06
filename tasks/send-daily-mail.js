@@ -1,4 +1,3 @@
-
 var translation = require('../i18n/' + process.env.MAIL_LANGUAGE + '.json');
 var getExtremums = require('get-extremums');
 var nodemailer = require('nodemailer');
