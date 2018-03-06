@@ -57,9 +57,15 @@ models.waterline.initialize(models.config, function (err, models) {
   });
 
   schedule.scheduleJob('0 0 0 1 * *', function () {
-    prepareData(86400000 * moment().subtract(1,'month').daysInMonth(), function (err, results) {
+    prepareData(86400000 * moment().subtract(1, 'month').daysInMonth(), function (err, results) {
       if (!err) {
-        sendMonthlyMail(...results);
+        sendMonthlyMail(...results, function (err) {
+          if (!err) {
+            results[1].forEach(function (el) {
+              app.models.weatherdata.destroy({ id: el.id }, function () {});
+            });
+          }
+        });
       }
     });
   });
