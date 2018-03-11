@@ -30,7 +30,6 @@ router.get('/:ip', auth, function(req, res, next) {
 
 /* PUT Sensor */
 router.put('/:ip', auth, function(req, res, next) {
-    delete req.body.ip;
     req.app.models.sensors.update({ ip: req.params.ip }, req.body, function(err, model) {
         if(err) return next(err);
         res.json(model[0]);
