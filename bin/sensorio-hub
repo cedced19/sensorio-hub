@@ -21,7 +21,7 @@ var moment = require('moment');
  * Get port from environment and store in Express.
  */
 
-var port = require('env-port')('8887');
+var port = require('env-port')('8888');
 app.set('port', port);
 
 /**

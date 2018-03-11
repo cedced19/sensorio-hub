@@ -19,7 +19,7 @@ var bundle = function () {
 
 var dev = function () {
   bs.init({
-      proxy: 'http://localhost:' + require('env-port')('8887')
+      proxy: 'http://localhost:' + require('env-port')('8888')
   });
 
   bs.watch(path('../public/stylesheets/style.css')).on('change', bs.reload);
