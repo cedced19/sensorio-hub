@@ -23,7 +23,7 @@ app.config(['$routeProvider', '$translateProvider', function($routeProvider, $tr
             templateUrl: '/views/form-sensor.html',
             controller: 'UpdateSensorCtrl'
         })
-        .when('/weather-sation/graph/:ip', {
+        .when('/weather-station/graph/:ip', {
             templateUrl: '/views/weather-station-graph.html',
             controller: 'WeatherStationGraphCtrl'
         })
