@@ -7,6 +7,7 @@
     <label for="type">{{ 'sensor_type' | translate }}:</label>
     <select name="type" ng-model="sensor.type" required>
         <option value="weather-station">{{ 'weather_station' | translate }}</option>
+        <option value="electric-meter">{{ 'electric_meter' | translate }}</option>
     </select>
     <input type="submit" class="btn btn-submit" value="{{ 'submit' | translate }}" ng-click="defineSensor()">
 </form>

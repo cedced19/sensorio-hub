@@ -22,5 +22,7 @@
     "cancel": "Cancel",
     "send_daily_mail": "Send email of the day",
     "send_monthly_mail": "Send email of the month",
-    "task_success": "The task was successfully completed."
+    "task_success": "The task was successfully completed.",
+    "electric_meter": "Electric meter",
+    "consumption": "Comsumption"
 }

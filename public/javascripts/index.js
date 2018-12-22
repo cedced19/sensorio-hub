@@ -27,6 +27,10 @@ app.config(['$routeProvider', '$translateProvider', function($routeProvider, $tr
             templateUrl: '/views/weather-station-graph.html',
             controller: 'WeatherStationGraphCtrl'
         })
+        .when('/electric-meter/graph/:ip', {
+            templateUrl: '/views/electric-meter-graph.html',
+            controller: 'ElectricMeterGraphCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -63,3 +67,4 @@ app.controller('ListCtrl', require('./controllers/list.js'));
 app.controller('AddSensorCtrl', require('./controllers/add-sensor.js'));
 app.controller('UpdateSensorCtrl', require('./controllers/update-sensor.js'));
 app.controller('WeatherStationGraphCtrl', require('./controllers/weather-station-graph.js'));
+app.controller('ElectricMeterGraphCtrl', require('./controllers/electric-meter-graph.js'));

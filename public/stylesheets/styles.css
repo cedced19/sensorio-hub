@@ -135,7 +135,7 @@ td a {
   color: #0c1721;
 }
 
-.weather-station-box {
+.weather-station-box,.electric-meter-box {
     border-radius: 25px;
     border: 2px solid #73AD21;
     padding: 20px; 
@@ -144,7 +144,7 @@ td a {
     margin: 15px;
 }
 
-.weather-station-box h3:hover {
+.weather-station-box h3:hover,.electric-meter-box h3:hover {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -164,7 +164,7 @@ td a {
     display: grid;
     padding: 50px;
   }
-  .weather-station-box {
+  .weather-station-box, .electric-meter-box{
     margin-left: 0;
     height: 250px;
   }

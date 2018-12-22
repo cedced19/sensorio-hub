@@ -1,0 +1,8 @@
+<a class="btn previous" ng-click="$goTo('/')"><b>&#8249;</b> {{ 'go_back' | translate }}</a>
+<a class="btn" ng-click="showWeekly()" ng-hide="view=='weekly'">{{ 'week' | translate }}</a>
+<a class="btn" ng-click="reload()"><i class="icon-reload"></i></a>
+<div class="canvas-container">
+        <canvas id="line" class="chart chart-line" chart-data="numbers" chart-labels="time" chart-legend="true" chart-series="seriesNum">
+        </canvas>
+</div>
+<a class="btn" ng-click="changeUnit()">Changer l'unité</a>

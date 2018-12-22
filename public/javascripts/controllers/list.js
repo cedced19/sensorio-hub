@@ -18,6 +18,24 @@ module.exports = ['$scope', '$http', '$rootScope', '$translate', 'notie', functi
         $scope.weatherData = data;
     }).error($rootScope.$error);
 
+    $http.get('/api/electric-data').success(function (data) {
+        data.forEach(function (el) {
+            for (var k in $rootScope.sensors) {
+                if ($rootScope.sensors[k].ip == el.ip) {
+                    $rootScope.sensors[k].attributed = true;
+                    el.attributed = true;
+                    el.name = $rootScope.sensors[k].name;
+                }
+            }
+        });
+        $rootScope.sensors.forEach(function (el) {
+            if (el.type == 'electric-meter' && !el.attributed) {
+                data.push(el);
+            }
+        });
+        $scope.electricData = data;
+    }).error($rootScope.$error);
+
     $scope.deleteSensor = function (ip) {
         $translate(['delete_it', 'delete_sensor_question', 'sensor_deleted', 'cancel']).then(function (translations) {
             notie.confirm(translations['delete_sensor_question'], translations['delete_it'], translations['cancel'], function () {
