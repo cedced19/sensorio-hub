@@ -65,6 +65,9 @@ models.waterline.initialize(models.config, function (err, models) {
             results[1].forEach(function (el) {
               app.models.weatherdata.destroy({ id: el.id }, function () {});
             });
+            results[2].forEach(function (el) {
+              app.models.electricdata.destroy({ id: el.id }, function () {});
+            });
           }
         });
       }
@@ -135,6 +138,15 @@ function prepareData(range, cb) {
     },
     function (callback) {
       app.models.weatherdata.find({
+        createdAt: { '>=': new Date(new Date().getTime() - range) },
+        sort: { createdAt: 'desc' }
+      }).exec(function (err, models) {
+        if (err) return callback(true);
+        callback(null, models);
+      });
+    },
+    function (callback) {
+      app.models.electricdata.find({
         createdAt: { '>=': new Date(new Date().getTime() - range) },
         sort: { createdAt: 'desc' }
       }).exec(function (err, models) {

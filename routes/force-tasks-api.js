@@ -21,6 +21,15 @@ function prepareData(req, range, cb) {
             });
         },
         function (callback) {
+          req.app.models.electricdata.find({
+            createdAt: { '>=': new Date(new Date().getTime() - range) },
+            sort: { createdAt: 'desc' }
+          }).exec(function (err, models) {
+            if (err) return callback(true);
+            callback(null, models);
+          });
+        },
+        function (callback) {
             req.app.models.sensors.find().exec(function (err, models) {
                 if (err) return callback(true);
                 callback(null, models);

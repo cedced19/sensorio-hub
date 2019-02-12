@@ -20,7 +20,7 @@ function groupBy(array, funcProp) {
     }, {});
 };
 
-module.exports = function (users, weatherData, sensors, cb) {
+module.exports = function (users, weatherData, electricData, sensors, cb) {
 
     // Attach weather data to sensors
     var list = [];
@@ -33,47 +33,63 @@ module.exports = function (users, weatherData, sensors, cb) {
         delete el.ip;
         sensors[list.indexOf(ip)].data.push(el);
     });
+    electricData.forEach(function (el) {
+        var ip = el.ip;
+        delete el.ip;
+        sensors[list.indexOf(ip)].data.push(el);
+    });
 
     // Generate text
     var title = `${moment().subtract(1, 'month').format('DD MMMM')} ${translation['TO']} ${moment().format('DD MMMM')}`;
     var text = `<h1>${translation['LAST_MONTH']}: ${title}</h1><i>${translation['GENERATED_AT']}: ${moment().format('DD/MM/YY HH:mm')}</i>`;
 
     sensors.forEach(function (el) {
+        text += `<h2>${el.name}</h2>`;
         if (el.data.length == 0) {
             text += `<p>${translation['INACTIVE_SENSOR']}</p>`
         } else {
-            // Divide data by days
-            var days = groupBy(el.data, function (k) {
-                return moment(new Date(k.createdAt)).startOf('day').format();
-            });
-
-            var daysStats = [];
-            for (var k in days) {
-                let extremums = getExtremums(days[k], 'temperature');
-                daysStats.push({
-                    lowest: extremums.lowest.temperature,
-                    highest: extremums.highest.temperature,
-                    average_temp: getAverageProperty(days[k], 'temperature'),
-                    date: k
+            if (el.type == 'weather-station') {
+                // Divide data by days
+                var days = groupBy(el.data, function (k) {
+                    return moment(new Date(k.createdAt)).startOf('day').format();
                 });
-            }
-            // Get hottest and coldest day of the month
-            var coldestAndHottestDays = getExtremums(daysStats, 'average_temp');
 
-            // Get lowest and highest temperatures
-            var lowestTempMonth = getExtremums(daysStats, 'lowest').lowest;
-            var highestTempMonth = getExtremums(daysStats, 'highest').highest;
-            text += `<h2>${el.name}</h2>
-            <p>
-                <ul>
-                    <li>${translation['AVERAGE_LOWEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'lowest'))} °C</li>
-                    <li>${translation['AVERAGE_HIGHEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'highest'))} °C</li>  
-                    <li>${translation['LOWEST_TEMP_MONTH']} (<i>${moment(new Date(lowestTempMonth.date)).format('DD MMMM')}</i>): ${lowestTempMonth.lowest} °C</li>          
-                    <li>${translation['HIGHEST_TEMP_MONTH']} (<i>${moment(new Date(highestTempMonth.date)).format('DD MMMM')}</i>): ${highestTempMonth.highest} °C</li>          
-                    <li>${translation['COLDEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.lowest.date)).format('DD MMMM')}</li>
-                    <li>${translation['HOTTEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.highest.date)).format('DD MMMM')}</li>           
-                </ul>
-            </p>`
+                var daysStats = [];
+                for (var k in days) {
+                    let extremums = getExtremums(days[k], 'temperature');
+                    daysStats.push({
+                        lowest: extremums.lowest.temperature,
+                        highest: extremums.highest.temperature,
+                        average_temp: getAverageProperty(days[k], 'temperature'),
+                        date: k
+                    });
+                }
+                // Get hottest and coldest day of the month
+                var coldestAndHottestDays = getExtremums(daysStats, 'average_temp');
+
+                // Get lowest and highest temperatures
+                var lowestTempMonth = getExtremums(daysStats, 'lowest').lowest;
+                var highestTempMonth = getExtremums(daysStats, 'highest').highest;
+                text += `<p>
+                    <ul>
+                        <li>${translation['AVERAGE_LOWEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'lowest'))} °C</li>
+                        <li>${translation['AVERAGE_HIGHEST_TEMP']}: ${Math.floor(getAverageProperty(daysStats, 'highest'))} °C</li>  
+                        <li>${translation['LOWEST_TEMP_MONTH']} (<i>${moment(new Date(lowestTempMonth.date)).format('DD MMMM')}</i>): ${lowestTempMonth.lowest} °C</li>          
+                        <li>${translation['HIGHEST_TEMP_MONTH']} (<i>${moment(new Date(highestTempMonth.date)).format('DD MMMM')}</i>): ${highestTempMonth.highest} °C</li>          
+                        <li>${translation['COLDEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.lowest.date)).format('DD MMMM')}</li>
+                        <li>${translation['HOTTEST_DAY_MONTH']}: ${moment(new Date(coldestAndHottestDays.highest.date)).format('DD MMMM')}</li>           
+                    </ul>
+                </p>`
+            }
+            if (el.type == 'electric-meter') {
+                s=0
+                el.data.forEach(function (k) {
+                    s+=k.number
+                });
+                text += `<p>
+                    <b>${translation['TOTAL_CONSUMPTION']}</b> ${(s/1000).toFixed(4)} kWh
+                </p>`;
+            }
         }
     });
 

@@ -149,6 +149,11 @@ td a {
     cursor: pointer;
 }
 
+.electric-meter-box i {
+  display: block;
+  margin-bottom: 10px;
+}
+
 .previous {
     padding: 15px;
     margin-bottom: 15px;

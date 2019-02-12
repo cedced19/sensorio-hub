@@ -19,7 +19,7 @@
 <div ng-repeat="sensor in electricData" class="electric-meter-box">
     <h3 ng-click="$goTo('/electric-meter/graph/' + sensor.ip)">{{sensor.name}}</h3>
     <i>{{sensor.ip}}</i>
-    <p ng-if="!station.attributed">{{ 'sensor_inactive' | translate }}</p>
+    <p ng-if="!sensor.attributed">{{ 'sensor_inactive' | translate }}</p>
     <a class="btn" ng-click="deleteSensor(sensor.ip)"><i class="icon-trash"></i></a>
     <a class="btn" ng-click="$goTo('/update-sensor/'+sensor.ip)"><i class="icon-pencil"></i></a>
     <a class="btn btn-mobile" ng-click="$goTo('/electric-meter/graph/' + sensor.ip)">{{ 'statistics' | translate }}</a>
