@@ -5,4 +5,5 @@
         <canvas id="line" class="chart chart-line" chart-data="numbers" chart-labels="time" chart-legend="true" chart-series="seriesNum">
         </canvas>
 </div>
-<a class="btn" ng-click="changeUnit()">Changer l'unité</a>
+<p><b>{{ 'total_consumption' | translate }}:</b> {{count}} {{kilo ? 'k': ''}}Wh</p>
+<a class="btn" ng-click="changeUnit()">{{ 'change_unit' | translate }}</a>

@@ -19,10 +19,13 @@
     "delete_sensor_question": "Delete this sensor?",
     "delete_it": "Yes, delete it",
     "station_inactive": "The station is inactive.",
+    "sensor_inactive": "The sensor is inactive.",
     "cancel": "Cancel",
     "send_daily_mail": "Send email of the day",
     "send_monthly_mail": "Send email of the month",
     "task_success": "The task was successfully completed.",
     "electric_meter": "Electric meter",
-    "consumption": "Comsumption"
+    "consumption": "Comsumption",
+    "total_consumption": "Total consumption",
+    "change_unit": "Change unit"
 }

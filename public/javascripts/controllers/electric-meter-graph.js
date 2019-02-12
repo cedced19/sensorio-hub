@@ -14,6 +14,25 @@ module.exports = ['$scope', '$http', '$rootScope', '$location', '$routeParams', 
 
     $scope.kilo = false;
 
+    $scope.changeUnit = function () {
+        $scope.kilo = !$scope.kilo;
+        $scope.numbers[0].forEach(function (element, k) {
+            if ($scope.kilo) {
+                $scope.numbers[0][k] = element / 1000
+            } else {
+                $scope.numbers[0][k] = element * 1000
+            }
+        });
+        if ($scope.kilo) {
+            $scope.count = $scope.count / 1000
+        } else {
+            $scope.count = $scope.count * 1000
+        }
+        $translate('consumption').then(function (translation) {
+            $scope.seriesNum = [translation + ' ('+ ($scope.kilo ? 'k' : '')+'Wh)'];
+        });
+    }
+
     $scope.reload = function () {
         $scope.view = 'daily';
         $http.get('/api/electric-data/'+ $routeParams.ip + '/day/').success(function(data) {
@@ -24,26 +43,15 @@ module.exports = ['$scope', '$http', '$rootScope', '$location', '$routeParams', 
             $translate('consumption').then(function (translation) {
                 $scope.seriesNum = [translation + ' (Wh)'];
             });
+            var s = 0
             data.forEach(function(el) {
                 $scope.time.push(getFormatedHours(el.createdAt));
                 $scope.numbers[0].push(el.number);
+                s+=el.number
             });
+            $scope.count=s;
         }).error($rootScope.$error);
     };
-    
-    $scope.changeUnit = function () {
-        $scope.kilo = !$scope.kilo;
-        $scope.numbers[0].forEach(function (element, k) {
-            if ($scope.kilo) {
-                $scope.numbers[0][k] = element / 1000
-            } else {
-                $scope.numbers[0][k] = element * 1000
-            }
-        })
-        $translate('consumption').then(function (translation) {
-            $scope.seriesNum = [translation + ' ('+ ($scope.kilo ? 'k' : '')+'Wh)'];
-        });
-    }
 
     $scope.showWeekly = function () {
         $scope.view = 'weekly';
@@ -60,7 +68,6 @@ module.exports = ['$scope', '$http', '$rootScope', '$location', '$routeParams', 
             });
         }).error($rootScope.$error);
     };
-
     
     $scope.reload();
 }];

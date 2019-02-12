@@ -25,5 +25,7 @@
     "send_monthly_mail": "Envoyer le mail du mois",
     "task_success": "La tâche a été effectuée avec succès.",
     "electric_meter": "Compteur électrique",
-    "consumption": "Consommation"
+    "consumption": "Consommation",
+    "total_consumption": "Consommation totale",
+    "change_unit": "Changer l'unité"
 }
