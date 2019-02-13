@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var auth = require('../policies/auth.js');
 var isElectricMeter = require('../policies/electric-meter.js');
+var async = require('async');
 
 /* GET last electric data from each sensor */
 router.get('/', auth, function (req, res, next) {
@@ -71,6 +72,21 @@ router.get('/:ip', auth, function (req, res, next) {
     });
 });
 
+
+/* DELETE All electric data from one ip  */
+router.delete('/:ip', auth, function (req, res, next) {
+    req.app.models.electricdata.find({
+        ip: req.params.ip
+    }).exec(function (err, models) {
+        if (err) return next(err);
+        async.each(models, function(model, callback) {
+            req.app.models.electricdata.destroy({ id: model.id }, callback);
+        }, function(err) {
+            if (err) next(err);
+            res.json(models);
+        });
+    });
+});
 
 
 module.exports = router;

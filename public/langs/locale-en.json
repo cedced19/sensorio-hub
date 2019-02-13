@@ -16,7 +16,9 @@
     "week": "Week",
     "statistics": "Statistics",
     "sensor_deleted": "Deleted! The sensor has been deleted.",
+    "sensor_values_deleted": "Deleted! The values of the sensor have been deleted.",
     "delete_sensor_question": "Delete this sensor?",
+    "delete_sensor_values_question": "Delete this values?",
     "delete_it": "Yes, delete it",
     "station_inactive": "The station is inactive.",
     "sensor_inactive": "The sensor is inactive.",
@@ -27,5 +29,6 @@
     "electric_meter": "Electric meter",
     "consumption": "Comsumption",
     "total_consumption": "Total consumption",
-    "change_unit": "Change unit"
+    "change_unit": "Change unit",
+    "delete_values": "Delete values"
 }

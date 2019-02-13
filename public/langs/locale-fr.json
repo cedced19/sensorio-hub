@@ -16,7 +16,9 @@
     "week": "Semaine",
     "statistics": "Statistiques",
     "sensor_deleted": "Le capteur a été supprimée.",
-    "delete_sensor_question": "Êtes vous sur de vouloir supprimer ce capteur ?",
+    "sensor_values_deleted": "Les valeurs du capteur ont été supprimée.",
+    "delete_sensor_question": "Êtes-vous sur de vouloir supprimer ce capteur ?",
+    "delete_sensor_values_question": "Êtes-vous sur de vouloir supprimer ces valeurs ?",
     "delete_it": "Supprimer",
     "station_inactive": "La station est inactive.",
     "sensor_inactive": "Le capteur est inactif.",
@@ -27,5 +29,6 @@
     "electric_meter": "Compteur électrique",
     "consumption": "Consommation",
     "total_consumption": "Consommation totale",
-    "change_unit": "Changer l'unité"
+    "change_unit": "Changer l'unité",
+    "delete_values": "Supprimer les valeurs"
 }
