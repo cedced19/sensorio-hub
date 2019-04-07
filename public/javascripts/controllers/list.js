@@ -8,8 +8,11 @@ module.exports = ['$scope', '$http', '$rootScope', '$translate', 'notie', functi
             if (el.type == 'fill-rate-cylinder-sensor') {
                 if (el.value) {
                     V_empty = Math.PI*el.radius*el.radius*(el.value-el.error)
+                    if (V_empty < 0) {
+                        V_empty = 0;
+                    }
                     V_tot = Math.PI*el.radius*el.radius*el.height
-                    el.percentage = Math.round(V_empty/V_tot*100);
+                    el.percentage = 100-Math.round(V_empty/V_tot*100);
                 }
                 fillRateCylinderSensors.push(el);
             }

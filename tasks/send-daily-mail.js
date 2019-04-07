@@ -42,7 +42,7 @@ module.exports = function (users, weatherData, electricData, sensors, cb) {
             el.V_tot_L = el.V_tot*1000
             el.V_full = Number((el.V_tot - el.V_empty).toFixed(3))
             el.V_full_L = el.V_full*1000
-            el.percentage = Math.round(el.V_empty/el.V_tot*100);
+            el.percentage = 100-Math.round(el.V_empty/el.V_tot*100);
             text += `<p><b>${ translation['V_EMPTY'] }</b>: ${el.V_empty_L}L (${el.V_empty} m³)</p>
             <p><b>${ translation['V_FULL'] }</b>: ${el.V_full_L}L (${el.V_full} m³)</p>
             <p><b>${ translation['FILL_RATE'] }</b>: ${el.percentage}%</p>`

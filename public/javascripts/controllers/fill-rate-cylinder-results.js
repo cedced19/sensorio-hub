@@ -3,12 +3,15 @@ module.exports = ['$scope', '$http', '$rootScope', '$routeParams', '$translate',
     $scope.sensor = {};
     $scope.calculate = function (el) {
         el.V_empty = Number((Math.PI*el.radius*el.radius*(el.value-el.error)*1e-6).toFixed(3))
+        if (el.V_empty < 0) {
+            el.V_empty = 0;
+        }
         el.V_empty_L = el.V_empty*1000
         el.V_tot = Number((Math.PI*el.radius*el.radius*el.height*1e-6).toFixed(3))
         el.V_tot_L = el.V_tot*1000
         el.V_full = Number((el.V_tot - el.V_empty).toFixed(3))
         el.V_full_L = el.V_full*1000
-        el.percentage = Math.round(el.V_empty/el.V_tot*100);
+        el.percentage = Math.round(el.V_full/el.V_tot*100);
         el.units = Math.round(el.V_full_L / el.divideunit);
         $scope.sensor = el
     }
