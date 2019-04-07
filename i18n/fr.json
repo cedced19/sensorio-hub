@@ -39,5 +39,8 @@
     "HOTTEST_DAY_MONTH": "Jour le plus chaud du mois",
     "TO": "au",
     "INACTIVE_SENSOR": "Le capteur a été inactif sur la totalité de la période.",
-    "TOTAL_CONSUMPTION": "Consommation totale"
+    "TOTAL_CONSUMPTION": "Consommation totale",
+    "V_EMPTY": "Volume vide",
+    "V_FULL": "Volume rempli",
+    "FILL_RATE": "Taux de remplissage"
   }

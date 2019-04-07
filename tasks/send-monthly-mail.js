@@ -44,10 +44,11 @@ module.exports = function (users, weatherData, electricData, sensors, cb) {
     var text = `<h1>${translation['LAST_MONTH']}: ${title}</h1><i>${translation['GENERATED_AT']}: ${moment().format('DD/MM/YY HH:mm')}</i>`;
 
     sensors.forEach(function (el) {
-        text += `<h2>${el.name}</h2>`;
-        if (el.data.length == 0) {
+        if (el.data.length == 0 && el.type != 'fill-rate-cylinder-sensor') {
+            text += `<h2>${el.name}</h2>`;
             text += `<p>${translation['INACTIVE_SENSOR']}</p>`
         } else {
+            text += `<h2>${el.name}</h2>`;
             if (el.type == 'weather-station') {
                 // Divide data by days
                 var days = groupBy(el.data, function (k) {

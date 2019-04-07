@@ -39,5 +39,8 @@
     "HOTTEST_DAY_MONTH": "Hottest day of the month",
     "TO": "to",
     "INACTIVE_SENSOR": "The sensor was inactive for the entire period.",
-    "TOTAL_CONSUMPTION": "Total consumption"
+    "TOTAL_CONSUMPTION": "Total consumption",
+    "V_EMPTY": "Full volume",
+    "V_FULL": "Empty volume",
+    "FILL_RATE": "Fill rate"
   }
