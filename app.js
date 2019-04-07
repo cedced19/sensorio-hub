@@ -26,7 +26,6 @@ var weatherData = require('./routes/weather-data-api');
 var electricData = require('./routes/electric-data-api');
 var forceTasks = require('./routes/force-tasks-api');
 var version = require('./routes/version-api');
-
 var index = require('./routes/index');
 
 var app = express();

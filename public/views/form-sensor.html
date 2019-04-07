@@ -8,6 +8,15 @@
     <select name="type" ng-model="sensor.type" required>
         <option value="weather-station">{{ 'weather_station' | translate }}</option>
         <option value="electric-meter">{{ 'electric_meter' | translate }}</option>
+        <option value="fill-rate-cylinder-sensor">{{ 'fill_rate_cylinder_sensor' | translate }}</option>
     </select>
+    <div ng-if="sensor.type == 'fill-rate-cylinder-sensor'">
+        <label for="type">{{ 'radius' | translate }} ({{ 'in_cm' | translate }}):</label>
+        <input type="number" name="radius" ng-model="sensor.radius">
+        <label for="type">{{ 'height' | translate }} ({{ 'in_cm' | translate }}):</label>
+        <input type="number" name="height" ng-model="sensor.height">
+        <label for="type">{{ 'error' | translate }} ({{ 'in_cm' | translate }}):</label>
+        <input type="number" name="error" ng-model="sensor.error">
+    </div>
     <input type="submit" class="btn btn-submit" value="{{ 'submit' | translate }}" ng-click="defineSensor()">
 </form>

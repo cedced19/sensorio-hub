@@ -31,6 +31,10 @@ app.config(['$routeProvider', '$translateProvider', function($routeProvider, $tr
             templateUrl: '/views/electric-meter-graph.html',
             controller: 'ElectricMeterGraphCtrl'
         })
+        .when('/fill-rate-cylinder/results/:ip', {
+            templateUrl: '/views/fill-rate-cylinder-results.html',
+            controller: 'FillRateCylinderResultCtrl'
+        })
         .otherwise({
             redirectTo: '/'
         });
@@ -68,3 +72,4 @@ app.controller('AddSensorCtrl', require('./controllers/add-sensor.js'));
 app.controller('UpdateSensorCtrl', require('./controllers/update-sensor.js'));
 app.controller('WeatherStationGraphCtrl', require('./controllers/weather-station-graph.js'));
 app.controller('ElectricMeterGraphCtrl', require('./controllers/electric-meter-graph.js'));
+app.controller('FillRateCylinderResultCtrl', require('./controllers/fill-rate-cylinder-results.js'));

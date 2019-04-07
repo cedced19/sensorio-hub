@@ -30,5 +30,13 @@
     "consumption": "Consommation",
     "total_consumption": "Consommation totale",
     "change_unit": "Changer l'unité",
-    "delete_values": "Supprimer les valeurs"
+    "delete_values": "Supprimer les valeurs",
+    "fill_rate_cylinder_sensor": "Calculateur du taux de remplissage d'un cylindre",
+    "fill_rate_cylinder_sensors": "Calculateurs du taux de remplissage d'un cylindre",
+    "height": "Hauteur",
+    "error": "Erreur",
+    "radius": "Rayon",
+    "in_cm": "en cm",
+    "electric_meters": "Compteur d'électricité",
+    "percentage_of_filling": "Pourcentage de remplissage"
 }

@@ -16,6 +16,7 @@
         <a class="btn" ng-click="$goTo('/update-sensor/'+station.ip)"><i class="icon-pencil"></i></a>
         <a class="btn btn-mobile" ng-click="$goTo('/weather-station/graph/' + station.ip)">{{ 'statistics' | translate }}</a>
 </div>
+<h2>{{ 'electric_meters' | translate }}</h2>
 <div ng-repeat="sensor in electricData" class="electric-meter-box">
     <h3 ng-click="$goTo('/electric-meter/graph/' + sensor.ip)">{{sensor.name}}</h3>
     <i>{{sensor.ip}}</i>
@@ -23,4 +24,14 @@
     <a class="btn" ng-click="deleteSensor(sensor.ip)"><i class="icon-trash"></i></a>
     <a class="btn" ng-click="$goTo('/update-sensor/'+sensor.ip)"><i class="icon-pencil"></i></a>
     <a class="btn btn-mobile" ng-click="$goTo('/electric-meter/graph/' + sensor.ip)">{{ 'statistics' | translate }}</a>
+</div>
+<h2>{{ 'fill_rate_cylinder_sensors' | translate }}</h2>
+<div ng-repeat="sensor in fillRateCylinderSensors" class="fill-rate-cylinder-sensor-box">
+    <h3 ng-click="$goTo('/fill-rate-cylinder/results/' + sensor.ip)">{{sensor.name}}</h3>
+    <i>{{sensor.ip}}</i>
+    <p ng-if="sensor.value">{{ 'percentage_of_filling' | translate }}:  {{sensor.percentage}}%</p>
+    <p ng-if="!sensor.value">{{ 'sensor_inactive' | translate }}</p>
+    <a class="btn" ng-click="deleteSensor(sensor.ip)"><i class="icon-trash"></i></a>
+    <a class="btn" ng-click="$goTo('/update-sensor/'+sensor.ip)"><i class="icon-pencil"></i></a>
+    <a class="btn btn-mobile" ng-click="$goTo('/fill-rate-cylinder/results/' + sensor.ip)">{{ 'statistics' | translate }}</a>
 </div>

@@ -29,7 +29,7 @@ input {
   line-height: 1.15;
 }
 
-input[type='password'], input[type='text'], input[type='email'], select {
+input[type='password'], input[type='text'], input[type='number'], input[type='email'], select {
     display: block;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -135,7 +135,7 @@ td a {
   color: #0c1721;
 }
 
-.weather-station-box,.electric-meter-box {
+.weather-station-box,.electric-meter-box, .fill-rate-cylinder-sensor-box {
     border-radius: 25px;
     border: 2px solid #73AD21;
     padding: 20px; 
@@ -144,12 +144,12 @@ td a {
     margin: 15px;
 }
 
-.weather-station-box h3:hover,.electric-meter-box h3:hover {
+.weather-station-box h3:hover,.electric-meter-box h3:hover, .fill-rate-cylinder-sensor-box h3:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.electric-meter-box i {
+.electric-meter-box i,  .fill-rate-cylinder-sensor-box i {
   display: block;
   margin-bottom: 10px;
 }

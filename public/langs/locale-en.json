@@ -30,5 +30,13 @@
     "consumption": "Comsumption",
     "total_consumption": "Total consumption",
     "change_unit": "Change unit",
-    "delete_values": "Delete values"
+    "delete_values": "Delete values",
+    "fill_rate_cylinder_sensor": "Cylinder fill rate calculator",
+    "fill_rate_cylinder_sensors": "Cylinder fill rate calculators",
+    "height": "Height",
+    "error": "Error",
+    "radius": "Radius",
+    "in_cm": "in cm",
+    "electric_meters": "Electric meters",
+    "percentage_of_filling": "percentage_of_filling"
 }

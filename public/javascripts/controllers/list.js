@@ -29,12 +29,24 @@ module.exports = ['$scope', '$http', '$rootScope', '$translate', 'notie', functi
             }
         });
         $rootScope.sensors.forEach(function (el) {
-            if (el.type == 'electric-meter' && !el.attributed) {
-                data.push(el);
-            }
+            
         });
         $scope.electricData = data;
     }).error($rootScope.$error);
+
+
+    fillRateCylinderSensors = [];
+    $rootScope.sensors.forEach(function (el) {
+        if (el.type == 'fill-rate-cylinder-sensor') {
+            fillRateCylinderSensors.push(el);
+            if (el.value) {
+                V_empty = Math.PI()*el.radius*el.radius*(el.value-el.error)
+                V_tot = Math.PI()*el.radius*el.radius*el.height
+                el.percentage = Math.round(V_empty/V_tot*100);
+            }
+        }
+    });
+    $scope.fillRateCylinderSensors = fillRateCylinderSensors;
 
     $scope.deleteSensor = function (ip) {
         $translate(['delete_it', 'delete_sensor_question', 'sensor_deleted', 'cancel']).then(function (translations) {
