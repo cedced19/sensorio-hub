@@ -63,9 +63,6 @@ app.run(['$rootScope', '$location', '$http', 'notie', '$translate', function ($r
     $rootScope.$goTo = function (path) {
         $location.path(path);
     }
-    $http.get('/api/sensors').success(function (data) {
-        $rootScope.sensors = data;
-    }).error($rootScope.$error);
 }]);
 app.controller('ListCtrl', require('./controllers/list.js'));
 app.controller('AddSensorCtrl', require('./controllers/add-sensor.js'));

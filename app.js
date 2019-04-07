@@ -24,6 +24,7 @@ var users = require('./routes/users-api');
 var sensors = require('./routes/sensors-api');
 var weatherData = require('./routes/weather-data-api');
 var electricData = require('./routes/electric-data-api');
+var fillRateCylinderValue = require('./routes/fill-rate-cylinder-sensor-api');
 var forceTasks = require('./routes/force-tasks-api');
 var version = require('./routes/version-api');
 var index = require('./routes/index');
@@ -79,6 +80,7 @@ app.use('/api/users', users);
 app.use('/api/sensors', sensors);
 app.use('/api/weather-data', weatherData);
 app.use('/api/electric-data', electricData);
+app.use('/api/fill-rate-cylinder-value', fillRateCylinderValue);
 app.use('/api/force-tasks', forceTasks);
 app.use('/api/version', version);
 

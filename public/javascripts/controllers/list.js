@@ -1,52 +1,58 @@
 module.exports = ['$scope', '$http', '$rootScope', '$translate', 'notie', function ($scope, $http, $rootScope, $translate, notie) {
 
-    $http.get('/api/weather-data').success(function (data) {
-        data.forEach(function (el) {
-            for (var k in $rootScope.sensors) {
-                if ($rootScope.sensors[k].ip == el.ip) {
-                    $rootScope.sensors[k].attributed = true;
-                    el.attributed = true;
-                    el.name = $rootScope.sensors[k].name;
-                }
-            }
-        });
+    $http.get('/api/sensors').success(function (data) {
+        $rootScope.sensors = data;
+
+        fillRateCylinderSensors = [];
         $rootScope.sensors.forEach(function (el) {
-            if (el.type == 'weather-station' && !el.attributed) {
-                data.push(el);
-            }
-        });
-        $scope.weatherData = data;
-    }).error($rootScope.$error);
-
-    $http.get('/api/electric-data').success(function (data) {
-        data.forEach(function (el) {
-            for (var k in $rootScope.sensors) {
-                if ($rootScope.sensors[k].ip == el.ip) {
-                    $rootScope.sensors[k].attributed = true;
-                    el.attributed = true;
-                    el.name = $rootScope.sensors[k].name;
+            if (el.type == 'fill-rate-cylinder-sensor') {
+                if (el.value) {
+                    V_empty = Math.PI*el.radius*el.radius*(el.value-el.error)
+                    V_tot = Math.PI*el.radius*el.radius*el.height
+                    el.percentage = Math.round(V_empty/V_tot*100);
                 }
+                fillRateCylinderSensors.push(el);
             }
         });
-        $rootScope.sensors.forEach(function (el) {
-            
-        });
-        $scope.electricData = data;
+        $scope.fillRateCylinderSensors = fillRateCylinderSensors;
+
+        $http.get('/api/weather-data').success(function (data) {
+            data.forEach(function (el) {
+                for (var k in $rootScope.sensors) {
+                    if ($rootScope.sensors[k].ip == el.ip) {
+                        $rootScope.sensors[k].attributed = true;
+                        el.attributed = true;
+                        el.name = $rootScope.sensors[k].name;
+                    }
+                }
+            });
+            $rootScope.sensors.forEach(function (el) {
+                if (el.type == 'weather-station' && !el.attributed) {
+                    data.push(el);
+                }
+            });
+            $scope.weatherData = data;
+        }).error($rootScope.$error);
+    
+        $http.get('/api/electric-data').success(function (data) {
+            data.forEach(function (el) {
+                for (var k in $rootScope.sensors) {
+                    if ($rootScope.sensors[k].ip == el.ip) {
+                        $rootScope.sensors[k].attributed = true;
+                        el.attributed = true;
+                        el.name = $rootScope.sensors[k].name;
+                    }
+                }
+            });
+            $rootScope.sensors.forEach(function (el) {
+                if (el.type == 'electric-meter' && !el.attributed) {
+                    data.push(el);
+                }
+            });
+            $scope.electricData = data;
+        }).error($rootScope.$error);
+
     }).error($rootScope.$error);
-
-
-    fillRateCylinderSensors = [];
-    $rootScope.sensors.forEach(function (el) {
-        if (el.type == 'fill-rate-cylinder-sensor') {
-            fillRateCylinderSensors.push(el);
-            if (el.value) {
-                V_empty = Math.PI()*el.radius*el.radius*(el.value-el.error)
-                V_tot = Math.PI()*el.radius*el.radius*el.height
-                el.percentage = Math.round(V_empty/V_tot*100);
-            }
-        }
-    });
-    $scope.fillRateCylinderSensors = fillRateCylinderSensors;
 
     $scope.deleteSensor = function (ip) {
         $translate(['delete_it', 'delete_sensor_question', 'sensor_deleted', 'cancel']).then(function (translations) {

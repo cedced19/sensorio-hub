@@ -23,7 +23,6 @@ router.get('/:ip', auth, function(req, res, next) {
     req.app.models.sensors.findOne({ ip: req.params.ip }, function(err, model) {
         if(err) return next(err);
         if(model === '' || model === null || model === undefined) return next(err);
-        delete model.password;
         res.json(model);
     });
 });
@@ -48,7 +47,12 @@ router.delete('/:ip', auth, function(req, res, next) {
                     if(err) return next(err);    
                     res.json({ status: true });            
                 });
-            } else {
+            } else if (model.type == 'electric-meter') {
+                req.app.models.electricdata.destroy({ ip: req.params.ip }, function(err) {    
+                    if(err) return next(err);    
+                    res.json({ status: true });            
+                });
+            }  else {
                 res.json({ status: true });
             }
         });
