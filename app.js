@@ -9,7 +9,6 @@ var i18n = require('i18n-express');
 
 var compress = require('compression');
 var minifyTemplate = require('express-beautify').minify;
-var minifyCSS = require('express-minify');
 
 var passport = require('passport');
 var hash = require('password-hash-and-salt');
@@ -54,7 +53,6 @@ if (app.get('env') === 'development') {
 } else {
     app.use(compress());
     app.use(minifyTemplate());
-    app.use(minifyCSS());
 }
   
 
