@@ -149,7 +149,7 @@ td a {
     cursor: pointer;
 }
 
-.electric-meter-box i,  .fill-rate-cylinder-sensor-box i {
+.electric-meter-box i {
   display: block;
   margin-bottom: 10px;
 }
