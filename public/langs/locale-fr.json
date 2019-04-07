@@ -46,5 +46,7 @@
     "v_full": "Volume rempli",
     "current_state": "État actuel",
     "constants": "Constantes",
-    "divide_unit": "Unité de division"
+    "divide_unit": "Unité de division",
+    "units": "unités restantes",
+    "order_of_size": "Ordre de grandeur"
 }

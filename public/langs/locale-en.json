@@ -46,5 +46,7 @@
     "v_full": "Full volume",
     "current_state": "Current state",
     "constants": "Constants",
-    "divide_unit": "Divide unit"
+    "divide_unit": "Divide unit",
+    "units": "units",
+    "order_of_size": "Order of size"
 }

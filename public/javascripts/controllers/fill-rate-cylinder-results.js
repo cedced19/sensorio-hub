@@ -9,9 +9,13 @@ module.exports = ['$scope', '$http', '$rootScope', '$routeParams', '$translate',
         el.V_full = Number((el.V_tot - el.V_empty).toFixed(3))
         el.V_full_L = el.V_full*1000
         el.percentage = Math.round(el.V_empty/el.V_tot*100);
-        console.log(el)
+        el.units = Math.round(el.V_full_L / el.divideunit);
         $scope.sensor = el
     }
+    $scope.change = function () {
+        $scope.sensor.units = Math.round($scope.sensor.V_full_L / $scope.sensor.divideunit);
+    }
+
     $scope.update = function () {
         $http.get('/api/sensors/'+ $routeParams.ip).success(function(data) {
             $scope.calculate(data);
