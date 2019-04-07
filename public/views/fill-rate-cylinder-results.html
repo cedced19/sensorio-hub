@@ -1,1 +1,16 @@
 <a class="btn previous" ng-click="$goTo('/')"><b>&#8249;</b> {{ 'go_back' | translate }}</a>
+<a class="btn" ng-click="update()"><i class="icon-reload"></i></a>
+
+<h2>{{sensor.name}}</h2>
+
+<h3>{{ 'constants' | translate }}</h3>
+<p><b>{{ 'radius' | translate }}</b>: {{sensor.radius}}cm</p>
+<p><b>{{ 'height' | translate }}</b>: {{sensor.height}}cm</p>
+<p><b>{{ 'error' | translate }}</b>: {{sensor.error}}cm</p>
+<p><b>{{ 'v_tot' | translate }}</b>: {{sensor.V_tot_L}}L ({{sensor.V_tot}} m³)</p>
+
+<h3>{{ 'current_state' | translate }}</h3>
+<p><b>{{ 'raw_value' | translate }}</b>: {{sensor.value}}cm</p>
+<p><b>{{ 'v_empty' | translate }}</b>: {{sensor.V_empty_L}}L ({{sensor.V_empty}} m³)</p>
+<p><b>{{ 'v_full' | translate }}</b>: {{sensor.V_full_L}}L ({{sensor.V_full}} m³)</p>
+<p><b>{{ 'fill_rate' | translate }}</b>: {{sensor.percentage}}%</p>

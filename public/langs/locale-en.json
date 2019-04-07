@@ -36,7 +36,15 @@
     "height": "Height",
     "error": "Error",
     "radius": "Radius",
-    "in_cm": "in cm",
+    "in": "in",
     "electric_meters": "Electric meters",
-    "percentage_of_filling": "percentage_of_filling"
+    "percentage_of_filling": "Percentage of filling",
+    "fill_rate": "Fill rate",
+    "raw_value": "Raw value",
+    "v_tot": "Total volume",
+    "v_empty": "Empty volume",
+    "v_full": "Full volume",
+    "current_state": "Current state",
+    "constants": "Constants",
+    "divide_unit": "Divide unit"
 }

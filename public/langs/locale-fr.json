@@ -36,7 +36,15 @@
     "height": "Hauteur",
     "error": "Erreur",
     "radius": "Rayon",
-    "in_cm": "en cm",
+    "in": "en",
     "electric_meters": "Compteur d'électricité",
-    "percentage_of_filling": "Pourcentage de remplissage"
+    "percentage_of_filling": "Pourcentage de remplissage",
+    "fill_rate": "Taux de remplissage",
+    "raw_value": "Valeur brute",
+    "v_tot": "Volume totale",
+    "v_empty": "Volume vide",
+    "v_full": "Volume rempli",
+    "current_state": "État actuel",
+    "constants": "Constantes",
+    "divide_unit": "Unité de division"
 }
