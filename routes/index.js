@@ -64,13 +64,27 @@ router.get('/users/new', auth, function (req, res) {
     });
 });
 
-/* GET delete user: delete an user */
-router.get('/users/delete/:email', auth, function (req, res) {
+/* GET delete user: delete an user with email */
+router.get('/users/delete/email/:email', auth, function (req, res) {
     if (req.user.email == req.params.email) {
         res.locals.success = 'user-not-deleted';
         res.render('success-page');
     } else {
-        req.app.models.users.destroy({ id: req.params.email }, function (err) {
+        req.app.models.users.destroy({ email: req.params.email }, function (err) {
+            if (err) return next(err);
+            res.locals.success = 'user-deleted';
+            res.render('success-page');
+        });
+    }
+});
+
+/* GET delete user: delete an user with id */
+router.get('/users/delete/id/:id', auth, function (req, res) {
+    if (req.user.id == req.params.id) {
+        res.locals.success = 'user-not-deleted';
+        res.render('success-page');
+    } else {
+        req.app.models.users.destroy({ id: req.params.id }, function (err) {
             if (err) return next(err);
             res.locals.success = 'user-deleted';
             res.render('success-page');
