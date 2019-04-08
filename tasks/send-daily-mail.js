@@ -37,6 +37,9 @@ module.exports = function (users, weatherData, electricData, sensors, cb) {
         text += `<h2>${el.name}</h2>`;
         if (el.type == 'fill-rate-cylinder-sensor') {
             el.V_empty = Number((Math.PI*el.radius*el.radius*(el.value-el.error)*1e-6).toFixed(3))
+            if (el.V_empty < 0) {
+                el.V_empty = 0;
+            }
             el.V_empty_L = el.V_empty*1000
             el.V_tot = Number((Math.PI*el.radius*el.radius*el.height*1e-6).toFixed(3))
             el.V_tot_L = el.V_tot*1000
