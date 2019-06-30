@@ -64,11 +64,9 @@
     "passport-local": "^1.0.0",
     "password-hash-and-salt": "^0.1.4",
     "request-ip": "^2.0.2",
-    "sails-mongo": "^0.12.1",
     "semver": "^5.5.0",
     "serve-favicon": "^2.4.5",
-    "server-welcome": "0.0.0",
-    "waterline": "^0.10.26"
+    "server-welcome": "0.0.0"
   },
   "devDependencies": {
     "browser-sync": "^2.24.6",

@@ -84,43 +84,58 @@ app.use('/api/fill-rate-cylinder-value', fillRateCylinderValue);
 app.use('/api/force-tasks', forceTasks);
 app.use('/api/version', version);
 
+// user collection 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/sensorio', { useNewUrlParser: true });
+var connection = mongoose.connection;
+
 // authentication
 passport.serializeUser(function (model, done) {
     done(null, model.email);
 });
 
 passport.deserializeUser(function (email, done) {
-    app.models.users.findOne({ email: email }, function (err, model) {
-        delete model.password;
-        done(err, model);
+    connection.db.collection('users', function (err, collection) {
+        collection.findOne({ email: email }, function (err, model) {
+            if (model != null) {
+                delete model.password;
+                return done(err, model);
+            }
+            done(err, false);
+        });
     });
 });
+
+var LocalStrategy = require('passport-local').Strategy;
 
 // define local strategy
 passport.use('local', new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password'
+    passwordField: 'password',
+    passReqToCallBack: true
 }, function (email, password, done) {
     // search in database
-    app.models.users.findOne({ email: email }, function (err, model) {
-        if (err) { return done(err); }
-        if (!model) {
-            return done(null, false, { message: 'Incorrect email.' });
-        }
-        // test password
-        hash(password).verifyAgainst(model.password, function (err, verified) {
-            if (err || !verified) {
-                return done(null, false, {
-                    message: 'Invalid password.'
-                });
-            } else {
-                var returnmodel = {
-                    email: model.email
-                };
-                return done(null, returnmodel, {
-                    message: 'Logged in successfully.'
-                });
+    connection.db.collection('users', function (err, collection) {
+        collection.findOne({ email: email }, function (err, model) {
+            if (err) { return done(err); }
+            if (!model) {
+                return done(null, false, { message: 'invalid-email' });
             }
+            // test password
+            hash(password).verifyAgainst(model.password, function (err, verified) {
+                if (err || !verified) {
+                    return done(null, false, {
+                        message: 'invalid-password'
+                    });
+                } else {
+                    var returnmodel = {
+                        email: model.email
+                    };
+                    return done(null, returnmodel, {
+                        message: 'Connexion réussi.'
+                    });
+                }
+            });
         });
     });
 }));

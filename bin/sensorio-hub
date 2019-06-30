@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-var path= require('path');
-require('dotenv').config({path: path.resolve(__dirname, '../.env')});
+var path = require('path');
 
 /**
  * Module dependencies.
@@ -11,17 +10,11 @@ var app = require('../app');
 var debug = require('debug')('sensorio-hub:server');
 var http = require('http');
 
-var async = require('async');
-var sendDailyMail = require('../tasks/send-daily-mail');
-var sendMonthlyMail = require('../tasks/send-monthly-mail');
-var schedule = require('node-schedule');
-var moment = require('moment');
-
 /**
  * Get port from environment and store in Express.
  */
 
-var port = require('env-port')('8888');
+var port = require('env-port')('8001');
 app.set('port', port);
 
 /**
@@ -34,46 +27,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-var models = require('../models');
-
-models.waterline.initialize(models.config, function (err, models) {
-  if (err) throw err;
-
-  app.models = models.collections;
-  app.connections = models.connections;
-
-  // Start server
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
-  console.log(require('server-welcome')(port, 'Sensorio Hub'));
-
-  // Define automatised tasks
-  schedule.scheduleJob('0 55 23 * * *', function () {
-    prepareData(86400000, function (err, results) {
-      if (!err) {
-        sendDailyMail(...results);
-      }
-    });
-  });
-
-  schedule.scheduleJob('0 0 0 1 * *', function () {
-    prepareData(86400000 * moment().subtract(1, 'month').daysInMonth(), function (err, results) {
-      if (!err) {
-        sendMonthlyMail(...results, function (err) {
-          if (!err) {
-            results[1].forEach(function (el) {
-              app.models.weatherdata.destroy({ id: el.id }, function () {});
-            });
-            results[2].forEach(function (el) {
-              app.models.electricdata.destroy({ id: el.id }, function () {});
-            });
-          }
-        });
-      }
-    });
-  });
-});
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
 /**
  * Event listener for HTTP server "error" event.
@@ -108,50 +64,5 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
-
-/**
- * Function to prepare data for automatised tasks.
- */
-function prepareData(range, cb) {
-  async.parallel([
-    function (callback) {
-      app.models.users.find().exec(function (err, models) {
-        if (err) return callback(true);
-        models.forEach(function (model) {
-          delete model.password;
-        });
-        callback(null, models);
-      });
-    },
-    function (callback) {
-      app.models.weatherdata.find({
-        createdAt: { '>=': new Date(new Date().getTime() - range) },
-        sort: { createdAt: 'desc' }
-      }).exec(function (err, models) {
-        if (err) return callback(true);
-        callback(null, models);
-      });
-    },
-    function (callback) {
-      app.models.electricdata.find({
-        createdAt: { '>=': new Date(new Date().getTime() - range) },
-        sort: { createdAt: 'desc' }
-      }).exec(function (err, models) {
-        if (err) return callback(true);
-        callback(null, models);
-      });
-    },
-    function (callback) {
-      app.models.sensors.find().exec(function (err, models) {
-        if (err) return callback(true);
-        callback(null, models);
-      });
-    }
-  ], cb);
+  console.log(require('server-welcome')(port, 'Sensorio Hub'));
 }
